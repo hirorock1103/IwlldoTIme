@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.TimerTask;
 
 
-public class MainActivity extends AppCompatActivity {
+public class RenzokuTimerActivity extends AppCompatActivity {
 
     //View
     private TextView setTimeTextSecond;
@@ -45,12 +45,14 @@ public class MainActivity extends AppCompatActivity {
     //タイマータイプ : 0:通常 1:登録タイマー 2:連続タイマー
     private int timerType = 0;
 
+    //あとで削除
+    private TextView description;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_renzoku_timer);
 
         layout = findViewById(R.id.layout);
         inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
@@ -71,67 +73,28 @@ public class MainActivity extends AppCompatActivity {
 
 
         //カテゴリエリアにカテゴリ情報を表示
-        //showCategory(timerType,currentCategoryid,currentTimerId);
-
-        //移動ボタン
-        Button btMove = findViewById(R.id.bt_move);
-        btMove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, RenzokuTimerActivity.class);
-                startActivity(intent);
-            }
-        });
+        description = findViewById(R.id.description);
+        showCategory(timerType,currentCategoryid,currentTimerId);
 
         //表示時間
         setTimeTextSecond = findViewById(R.id.text_count_second);
         setTimeTextMinute = findViewById(R.id.text_count_minute);
 
-
-        //開閉式
-        final Button btOpen = findViewById(R.id.bt_open);
-        btOpen.setOnClickListener(new View.OnClickListener() {
+        //戻るボタン
+        Button btBack = findViewById(R.id.bt_move_back);
+        btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(edit_title.getVisibility() != View.VISIBLE){
-                    //edit_title.setVisibility(View.INVISIBLE);
-                    edit_title.animate().alphaBy(0).alpha(1).translationYBy(-10).translationY(0).withStartAction(new TimerTask() {
-
-                        @Override
-                        public void run() {
-                            // アニメーションが始まる前にViewをVISIBLEにする
-                            edit_title.setVisibility(View.VISIBLE);
-                            //edit title
-                            btOpen.setText("+タイトル非表示");
-                        }
-                    });
-
-                }else{
-                    edit_title.animate().alpha(0).translationY(-10).withEndAction(new TimerTask(){
-                        @Override
-                        public void run() {
-
-                            // アニメーションが終わったらViewをGONEにする
-                            edit_title.setVisibility(View.GONE);
-                            //テキストをemptyに
-                            edit_title.setText("");
-                            //edit title
-                            btOpen.setText("+タイトル表示");
-                        }
-                    });
-                }
-
+                Intent intent = new Intent(RenzokuTimerActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
+
         //ボタン
-        bts = new Button[5];
-        bts[0] = findViewById(R.id.bt_10second);
-        bts[1] = findViewById(R.id.bt_1minute);
-        bts[2] = findViewById(R.id.bt_10minute);
-        //bts[3] = findViewById(R.id.bt_30minute);
-        bts[3] = findViewById(R.id.bt_start);
-        bts[4] = findViewById(R.id.bt_clear);
+        bts = new Button[2];
+        bts[0] = findViewById(R.id.bt_start);
+        bts[1] = findViewById(R.id.bt_clear);
 
         for(int i = 0; i < bts.length; i++){
 
@@ -141,19 +104,6 @@ public class MainActivity extends AppCompatActivity {
                     int second = 0;
                     int minute = 0;
                     switch (view.getId()){
-
-                        case R.id.bt_10second :
-                            second += (Integer.parseInt(setTimeTextSecond.getText().toString()) + 10);
-                            setTimeTextSecond.setText( String.format("%02d", second) );
-                            break;
-                        case R.id.bt_1minute :
-                            minute += Integer.parseInt(setTimeTextMinute.getText().toString()) + 1;
-                            setTimeTextMinute.setText( String.format("%02d", minute) );
-                            break;
-                        case R.id.bt_10minute :
-                            minute += Integer.parseInt(setTimeTextMinute.getText().toString()) + 10;
-                            setTimeTextMinute.setText( String.format("%02d", minute) );
-                            break;
 
                         case R.id.bt_clear :
 
@@ -166,13 +116,11 @@ public class MainActivity extends AppCompatActivity {
                             //isStart = false;
                             setTimeTextSecond.setText("00");
                             setTimeTextMinute.setText("00");
-                            bts[3].setText("スタート!");
+                            bts[0].setText("スタート!");
                             timerSecond = 0;
-                            isPushedFirstStart = false;
                             break;
 
                         case R.id.bt_start :
-
 
                             //タイマー起動かどうかで処理分ける
                             if(isStart == true){
@@ -182,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
                                 //isStart
                                 isStart = false;
                                 //ボタンの文言変更
-                                bts[3].setText("再開");
-
+                                bts[0].setText("再開");
 
                             }else{
 
@@ -195,36 +142,17 @@ public class MainActivity extends AppCompatActivity {
 
                                 if(timerSecond == 0){
                                     //カウントがセットされていない
-                                    Toast.makeText(MainActivity.this, "タイマーがセットされていません！", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RenzokuTimerActivity.this, "タイマーがセットされていません！", Toast.LENGTH_SHORT).show();
 
                                 }else{
-
-
-                                    //登録が必要かどうか
-                                    if(edit_title.getText().toString() == null || edit_title.getText().toString() == ""){
-                                        Toast.makeText(MainActivity.this, "タイトルを入力してください。", Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        penginComment.setText("『" +  edit_title.getText() + "』というタイトルでタイマーを登録するよ！");
-                                    }
 
                                     //start timer
                                     startTimer(timerSecond);
 
-                                    //登録するかどうかのジャッジ判定
-                                    if(isPushedFirstStart == false){
-                                        if(edit_title.getText().toString().equals("") == false ){
-                                            Toast.makeText(MainActivity.this,"timerStart(初回) & 登録対象：" + edit_title.getText().toString() ,Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    }
-
                                     //isStart
                                     isStart = true;
                                     //ボタンの文言変更
-                                    bts[3].setText("一時停止");
-
-                                    //初回push判定
-                                    isPushedFirstStart = true;
+                                    bts[0].setText("一時停止");
 
                                 }
 
@@ -337,6 +265,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
+
+        description.setText(builder.toString());
 
     }
 

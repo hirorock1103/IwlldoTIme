@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.design_phantom.iwlldotime.MainActivity">
+    tools:context="com.design_phantom.iwlldotime.RenzokuTimerActivity">
 
 
     <LinearLayout
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:textSize="12sp"
-                android:text="@string/pengin_comment_1"
+                android:text="@string/pengin_comment_2"
                 android:layout_weight="9"
                 android:background="@drawable/fukidashi_1"
                 android:textColor="#000"
@@ -47,39 +47,30 @@
 
 
         <LinearLayout
-            android:id="@+id/layout_editarea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:gravity=""
-            android:orientation="horizontal">
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/bt_open"
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/open" />
-
-
-            <EditText
-                android:id="@+id/edit_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:ems="7"
-                android:text="" />
-
+                android:textColor="#fff"
+                android:id="@+id/description"
+                android:background="#000"
+                android:gravity="center"
+                />
 
         </LinearLayout>
 
-
-
         <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:text="@string/agreement_text"-->
-            <!--android:gravity="center"-->
-            <!--/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:text="@string/agreement_text"-->
+        <!--android:gravity="center"-->
+        <!--/>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,50 +143,6 @@
             android:orientation="vertical">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    style="@style/myButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bt_10second"
-                    android:text="@string/bt_msg_10s"
-                    />
-
-                <Button
-                    style="@style/myButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bt_1minute"
-                    android:text="@string/bt_msg_1m"
-                    />
-
-                <Button
-                    style="@style/myButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bt_10minute"
-                    android:text="@string/bt_msg_10m"
-                    />
-
-                <!--<Button-->
-                    <!--style="@style/myButton"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/bt_30minute"-->
-                    <!--android:text="@string/bt_msg_30m"-->
-                    <!--/>-->
-
-
-            </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -227,7 +174,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -236,12 +182,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/bt_move"
+                android:id="@+id/bt_move_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/move1" />
+                android:text="@string/move2" />
 
         </LinearLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
