@@ -1,5 +1,7 @@
 package com.design_phantom.iwlldotime;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +10,15 @@ import java.util.Random;
  * Created by amb01 on 2018/09/15.
  */
 
-public class TimerCategorySample {
+public class TimerCategorySample extends MyDbHelper {
+
+    public TimerCategorySample(Context context) {
+        super(context);
+    }
+
+    public void addCategory(Category category){
+        super.addCategory(category);
+    }
 
     //Sample を返す
     public static List<Category> getCategorySample(){
@@ -43,6 +53,25 @@ public class TimerCategorySample {
             matrix.setCategory_id(1);
             matrix.setCreatedate("2018/09/12");
             list.add(matrix);
+        }
+
+        return list;
+    }
+
+    //sample
+    public static List<Timer> getTimers(){
+
+        List<Timer> list = new ArrayList<>();
+        String[] titles = {"腕立て", "腹筋", "テキストフッター", "握力","勉強", "英語"};
+        Integer[] minutes = {12,22,14,33,22,5};
+        Integer[] secondes = {0,0,10,0,0,0};
+        for (int i = 0; i < titles.length; i++){
+            Timer timer = new Timer();
+            timer.setTimer_id(i+1);
+            timer.setTimer_title(titles[i]);
+            timer.setTimer_minutes(minutes[i]);
+            timer.setTimer_second(secondes[i]);
+            list.add(timer);
         }
 
         return list;

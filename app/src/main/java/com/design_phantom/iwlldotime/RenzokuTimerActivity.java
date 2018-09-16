@@ -29,7 +29,11 @@ public class RenzokuTimerActivity extends AppCompatActivity {
     private EditText edit_title;
     private Button[] bts;
     private LinearLayout layout;
-    private LinearLayout layout_editarea;
+    private LinearLayout layout_category;
+    private LinearLayout layout_timer;
+
+    //class
+    private TimerManager timerManager;
 
     //タイマー関連
     private int timerSecond = 0;
@@ -57,6 +61,9 @@ public class RenzokuTimerActivity extends AppCompatActivity {
         layout = findViewById(R.id.layout);
         inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 
+        //timerManager
+        timerManager = new TimerManager();
+
         //登録タイマー
         timerType = getTimerType(currentCategoryid , currentTimerId);
 
@@ -69,7 +76,8 @@ public class RenzokuTimerActivity extends AppCompatActivity {
         //edit title area
         edit_title = findViewById(R.id.edit_title);
         //開閉式表示エリア
-        layout_editarea = findViewById(R.id.layout_editarea);
+        layout_category = findViewById(R.id.layout_select_category);
+        layout_timer = findViewById(R.id.layout_select_timer);
 
 
         //カテゴリエリアにカテゴリ情報を表示
@@ -79,6 +87,92 @@ public class RenzokuTimerActivity extends AppCompatActivity {
         //表示時間
         setTimeTextSecond = findViewById(R.id.text_count_second);
         setTimeTextMinute = findViewById(R.id.text_count_minute);
+
+
+        //開閉式
+        final Button btOpen1 = findViewById(R.id.bt_open_category);
+        btOpen1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(layout_category.getVisibility() != View.VISIBLE){
+                    //edit_title.setVisibility(View.INVISIBLE);
+                    layout_category.animate().alphaBy(0).alpha(1).translationYBy(-10).translationY(0).withStartAction(new TimerTask() {
+
+                        @Override
+                        public void run() {
+                            // アニメーションが始まる前にViewをVISIBLEにする
+                            layout_category.setVisibility(View.VISIBLE);
+                            //取得する
+                            List<TimerCategory> matrixList = TimerCategorySample.getMatrix();
+                            StringBuilder builder = new StringBuilder();
+                            for (TimerCategory matrix : matrixList){
+                                builder.append(matrix.getCategory_id());
+                                builder.append("-");
+                                builder.append(matrix.getTimer_id()+"\n");
+                            }
+                            TextView text = new TextView(RenzokuTimerActivity.this);
+                            text.setText(builder.toString());
+                            layout_category.addView(text);
+                        }
+                    });
+
+                }else{
+                    layout_category.animate().alpha(0).translationY(-10).withEndAction(new TimerTask(){
+                        @Override
+                        public void run() {
+
+                            // アニメーションが終わったらViewをGONEにする
+                            layout_category.setVisibility(View.GONE);
+                            layout_category.removeAllViews();
+
+
+                        }
+                    });
+                }
+
+            }
+        });
+
+
+        //開閉式
+        final Button btOpen2 = findViewById(R.id.bt_open_timer);
+        btOpen2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(layout_timer.getVisibility() != View.VISIBLE){
+                    //edit_title.setVisibility(View.INVISIBLE);
+                    layout_timer.animate().alphaBy(0).alpha(1).translationYBy(-10).translationY(0).withStartAction(new TimerTask() {
+
+                        @Override
+                        public void run() {
+
+                            //add view to layout
+                            List<Timer> timerList = timerManager.getTimers();
+
+
+
+
+                            // アニメーションが始まる前にViewをVISIBLEにする
+                            layout_timer.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+
+                }else{
+                    layout_timer.animate().alpha(0).translationY(-10).withEndAction(new TimerTask(){
+                        @Override
+                        public void run() {
+
+                            // アニメーションが終わったらViewをGONEにする
+                            layout_timer.setVisibility(View.GONE);
+
+                        }
+                    });
+                }
+
+            }
+        });
+
 
         //戻るボタン
         Button btBack = findViewById(R.id.bt_move_back);

@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText edit_title;
     private Button[] bts;
     private LinearLayout layout;
-    private LinearLayout layout_editarea;
 
     //タイマー関連
     private int timerSecond = 0;
@@ -66,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         //edit title area
         edit_title = findViewById(R.id.edit_title);
-        //開閉式表示エリア
-        layout_editarea = findViewById(R.id.layout_editarea);
-
 
         //カテゴリエリアにカテゴリ情報を表示
         //showCategory(timerType,currentCategoryid,currentTimerId);

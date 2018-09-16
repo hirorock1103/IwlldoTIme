@@ -13,4 +13,6 @@
     <string name="move2">戻る</string>
     <string name="register">登録</string>
     <string name="open">+タイトル追加</string>
+    <string name="open_select_category">オリジナルカテゴリを選択する</string>
+    <string name="open_select_timer">登録タイマーを選択する</string>
 </resources>
