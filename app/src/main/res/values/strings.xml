@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ペンギンタイマー</string>
+    <string name="bt_start_text">スタート！</string>
+    <string name="bt_clear_text">クリア</string>
+    <string name="agreement_text">テストメッセージ</string>
+    <string name="pengin_comment_1">タイトル入力すればタイマー登録できるよっ！組み合わせて自分だけのタイマーもできるよ</string>
+    <string name="bt_msg_10s">+10秒</string>
+    <string name="bt_msg_1m">+1分</string>
+    <string name="bt_msg_10m">+10分</string>
+    <string name="bt_msg_30m">+30分</string>
+    <string name="register">登録</string>
+    <string name="open">+タイトル追加</string>
+</resources>
