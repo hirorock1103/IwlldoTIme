@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.ListAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by amb01 on 2018/09/17.
@@ -58,6 +62,25 @@ public class MyDbHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_COLUMN_ID +" = " + categoryId);
     }
+
+    //select
+    public List<Category> getCategoryList(){
+        List<Category> list = new ArrayList<>();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_CATEGORY + " ORDER BY " + CATEGORY_COLUMN_ID + " DESC ";
+        Cursor c = db.rawQuery(query,null);
+        while(!c.isAfterLast()){
+            Category category = new Category();
+            category.setCategory_id(c.getInt(c.getColumnIndex(CATEGORY_COLUMN_ID)));
+            category.setCategory_name(c.getString(c.getColumnIndex(CATEGORY_COLUMN_NAME)));
+            category.setCreatedate(c.getString(c.getColumnIndex(CATEGORY_COLUMN_CREATEDATE)));
+            list.add(category);
+            c.moveToNext();
+        }
+
+        return list;
+    }
+
 
     //Print
     public String getCategoryToString (){

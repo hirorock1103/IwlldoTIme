@@ -102,17 +102,36 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                         public void run() {
                             // アニメーションが始まる前にViewをVISIBLEにする
                             layout_category.setVisibility(View.VISIBLE);
-                            //取得する
-                            List<TimerCategory> matrixList = TimerCategorySample.getMatrix();
-                            StringBuilder builder = new StringBuilder();
-                            for (TimerCategory matrix : matrixList){
-                                builder.append(matrix.getCategory_id());
-                                builder.append("-");
-                                builder.append(matrix.getTimer_id()+"\n");
-                            }
-                            TextView text = new TextView(RenzokuTimerActivity.this);
-                            text.setText(builder.toString());
-                            layout_category.addView(text);
+
+                            //sampler register
+                            TimerCategorySample manager = new TimerCategorySample(RenzokuTimerActivity.this);
+                            Category category = new Category();
+                            category.setCategory_name("SampleTest!");
+                            manager.addCategory(category);
+
+                            //sample get
+                            String dataString = manager.getCategoryToString();
+                            Toast.makeText(RenzokuTimerActivity.this, dataString, Toast.LENGTH_LONG).show();
+
+
+                            //category
+
+                            List<Category> categoryList = manager.getCategoryList();
+
+
+
+//
+//                            //取得する
+//                            List<TimerCategory> matrixList = TimerCategorySample.getMatrix();
+//                            StringBuilder builder = new StringBuilder();
+//                            for (TimerCategory matrix : matrixList){
+//                                builder.append(matrix.getCategory_id());
+//                                builder.append("-");
+//                                builder.append(matrix.getTimer_id()+"\n");
+//                            }
+//                            TextView text = new TextView(RenzokuTimerActivity.this);
+//                            text.setText(builder.toString());
+//                            layout_category.addView(text);
                         }
                     });
 
@@ -124,6 +143,7 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                             // アニメーションが終わったらViewをGONEにする
                             layout_category.setVisibility(View.GONE);
                             layout_category.removeAllViews();
+
 
 
                         }

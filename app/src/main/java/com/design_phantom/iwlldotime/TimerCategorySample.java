@@ -20,6 +20,10 @@ public class TimerCategorySample extends MyDbHelper {
         super.addCategory(category);
     }
 
+    public String getCategoryToString(){
+        return super.getCategoryToString();
+    }
+
     //Sample を返す
     public static List<Category> getCategorySample(){
         List<Category> list = new ArrayList<>();
@@ -38,6 +42,12 @@ public class TimerCategorySample extends MyDbHelper {
 
         return  list;
 
+    }
+
+    //Category
+    public List<Category> getCategoryList(){
+
+        List<Category> list = super.getCategoryList();
     }
 
     //matrix
