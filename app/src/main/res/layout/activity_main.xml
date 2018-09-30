@@ -63,7 +63,7 @@
                 android:id="@+id/edit_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:ems="10"
                 android:text="" />
 
@@ -235,6 +235,12 @@
 
             <Button
                 android:id="@+id/bt_move"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/move3" />
+
+            <Button
+                android:id="@+id/bt_move_to_make_matrix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/move1" />

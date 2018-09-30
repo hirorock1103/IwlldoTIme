@@ -79,46 +79,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button bt_move_to_matrix = findViewById(R.id.bt_move_to_make_matrix);
+        bt_move_to_matrix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MakeMtrxActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //表示時間
         setTimeTextSecond = findViewById(R.id.text_count_second);
         setTimeTextMinute = findViewById(R.id.text_count_minute);
 
-
-        //開閉式
-        final Button btOpen = findViewById(R.id.bt_open);
-        btOpen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(edit_title.getVisibility() != View.VISIBLE){
-                    //edit_title.setVisibility(View.INVISIBLE);
-                    edit_title.animate().alphaBy(0).alpha(1).translationYBy(-10).translationY(0).withStartAction(new TimerTask() {
-
-                        @Override
-                        public void run() {
-                            // アニメーションが始まる前にViewをVISIBLEにする
-                            edit_title.setVisibility(View.VISIBLE);
-                            //edit title
-                            btOpen.setText("+タイトル非表示");
-                        }
-                    });
-
-                }else{
-                    edit_title.animate().alpha(0).translationY(-10).withEndAction(new TimerTask(){
-                        @Override
-                        public void run() {
-
-                            // アニメーションが終わったらViewをGONEにする
-                            edit_title.setVisibility(View.GONE);
-                            //テキストをemptyに
-                            edit_title.setText("");
-                            //edit title
-                            btOpen.setText("+タイトル表示");
-                        }
-                    });
-                }
-
-            }
-        });
 
         //ボタン
         bts = new Button[5];
@@ -169,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
                         case R.id.bt_start :
 
-
                             //タイマー起動かどうかで処理分ける
                             if(isStart == true){
 
@@ -187,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
                                 int sec = Integer.parseInt(setTimeTextSecond.getText().toString());
                                 int min = Integer.parseInt(setTimeTextMinute.getText().toString());
                                 timerSecond = sec + (min * 60);
-                                Log.i("INFO" , "timerSecond : " + String.valueOf(timerSecond));
 
                                 if(timerSecond == 0){
                                     //カウントがセットされていない
@@ -195,21 +166,28 @@ public class MainActivity extends AppCompatActivity {
 
                                 }else{
 
-
-                                    //登録が必要かどうか
-                                    if(edit_title.getText().toString() == null || edit_title.getText().toString() == ""){
-                                        Toast.makeText(MainActivity.this, "タイトルを入力してください。", Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        penginComment.setText("『" +  edit_title.getText() + "』というタイトルでタイマーを登録するよ！");
-                                    }
-
                                     //start timer
                                     startTimer(timerSecond);
 
                                     //登録するかどうかのジャッジ判定
                                     if(isPushedFirstStart == false){
+
                                         if(edit_title.getText().toString().equals("") == false ){
-                                            Toast.makeText(MainActivity.this,"timerStart(初回) & 登録対象：" + edit_title.getText().toString() ,Toast.LENGTH_SHORT).show();
+
+                                            penginComment.setText("『" +  edit_title.getText() + "』というタイトルでタイマーを登録するよ！");
+                                            Toast.makeText(MainActivity.this,"timerStart(初回) & 登録対象："
+                                                    + edit_title.getText().toString() ,Toast.LENGTH_SHORT).show();
+                                            TimerCategorySample manager = new TimerCategorySample(MainActivity.this);
+
+                                            Timer timer = new Timer();
+                                            timer.setTimer_title(edit_title.getText().toString());
+                                            timer.setTimer_second(timerSecond);
+                                            manager.addTimer(timer);
+
+                                        }else{
+
+                                            Toast.makeText(MainActivity.this, "タイマーを登録するにはタイトルを入力してください。", Toast.LENGTH_SHORT).show();
+
                                         }
 
                                     }
@@ -258,24 +236,13 @@ public class MainActivity extends AppCompatActivity {
     //Timer start!
     public void startTimer(int second){
 
-
         timer = new CountDownTimer(second * 1000,10) {
             @Override
             public void onTick(long l) {
 
-                //setTimeTextSecond.setText( String.format("%02d", second) );
-                long ans = l/1000;
-                //1分以上ある場合は余りを秒数にセットする
-                if( (ans / 60) >= 1 ){
-                    long sec = (ans % 60);
-                    setTimeTextSecond.setText(String.format("%02d", sec));
-                    setTimeTextMinute.setText(String.format("%02d", (int)Math.floor(ans/60)));
-                }else{
-                    setTimeTextSecond.setText(String.format("%02d", ans));
-                    setTimeTextMinute.setText("00");
-                }
-
-
+                //millitimesから表示する秒数、分数を取得する
+                setTimeTextSecond.setText(Common.getSecond(l));
+                setTimeTextMinute.setText(Common.getMinutes(l));
             }
 
             @Override
@@ -292,7 +259,6 @@ public class MainActivity extends AppCompatActivity {
                 bts[3].setText("スタート");
 
             }
-
 
         }.start();
 

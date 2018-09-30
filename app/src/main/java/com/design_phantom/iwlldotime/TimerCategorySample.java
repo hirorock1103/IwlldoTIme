@@ -16,13 +16,13 @@ public class TimerCategorySample extends MyDbHelper {
         super(context);
     }
 
-    public void addCategory(Category category){
-        super.addCategory(category);
+    public int addCategory(Category category){
+        return super.addCategory(category);
+    }
+    public void addTimer(Timer timer){
+        super.addTimer(timer);
     }
 
-    public String getCategoryToString(){
-        return super.getCategoryToString();
-    }
 
     //Sample を返す
     public static List<Category> getCategorySample(){
@@ -48,6 +48,8 @@ public class TimerCategorySample extends MyDbHelper {
     public List<Category> getCategoryList(){
 
         List<Category> list = super.getCategoryList();
+
+        return list;
     }
 
     //matrix
@@ -66,6 +68,19 @@ public class TimerCategorySample extends MyDbHelper {
         }
 
         return list;
+    }
+
+    public List<TimerCategory> getMatrixListByCategoryId(int id){
+
+        return super.getMatrixListByCategoryId(id);
+    }
+
+    public List<JoinedMarix> getJoinedMatrixListByCategoryId(int id){
+        return super.getJoinedMatrixListByCategoryId(id);
+    }
+
+    public int addMatrix(TimerCategory matrix){
+        return super.addMatrix(matrix);
     }
 
     //sample

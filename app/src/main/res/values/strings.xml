@@ -1,18 +1,25 @@
 <resources>
     <string name="app_name">ペンギンタイマー</string>
     <string name="bt_start_text">スタート！</string>
+    <string name="bt_ok_text">登録する</string>
     <string name="bt_clear_text">クリア</string>
     <string name="agreement_text">テストメッセージ</string>
     <string name="pengin_comment_1">タイトル入力すればタイマー登録できるよっ！組み合わせて自分だけのタイマーもできるよ</string>
     <string name="pengin_comment_2">選択したタイマーを連続で実行できるよ！</string>
+    <string name="pengin_comment_3">登録したタイマーを組み合わせてみよう！</string>
     <string name="bt_msg_10s">+10秒</string>
     <string name="bt_msg_1m">+1分</string>
     <string name="bt_msg_10m">+10分</string>
     <string name="bt_msg_30m">+30分</string>
-    <string name="move1">連続タイマー</string>
+    <string name="move1">連続タイマー登録</string>
+    <string name="move3">連続タイマーを使う</string>
     <string name="move2">戻る</string>
     <string name="register">登録</string>
     <string name="open">+タイトル追加</string>
-    <string name="open_select_category">オリジナルカテゴリを選択する</string>
+    <string name="category_name">カテゴリ名</string>
+    <string name="open_select_category">make original</string>
     <string name="open_select_timer">登録タイマーを選択する</string>
+    <string name="add_category">カテゴリ追加</string>
+    <string name="delete_categry">カテゴリ削除</string>
+    <string name="bt_move_to_make_matrix">組み合わせ設定</string>
 </resources>

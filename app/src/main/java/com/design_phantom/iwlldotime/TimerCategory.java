@@ -9,7 +9,10 @@ public class TimerCategory {
     private int matrix_id;
     private int category_id;
     private int timer_id;
+    private int show_order;
     private String createdate;
+
+
 
     TimerCategory(){
 
@@ -45,5 +48,13 @@ public class TimerCategory {
 
     public void setCreatedate(String createdate) {
         this.createdate = createdate;
+    }
+
+    public int getShowOrder() {
+        return show_order;
+    }
+
+    public void setShowOrder(int order) {
+        this.show_order = order;
     }
 }
