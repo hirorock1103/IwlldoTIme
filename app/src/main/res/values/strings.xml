@@ -13,6 +13,7 @@
     <string name="bt_msg_30m">+30分</string>
     <string name="move1">連続タイマー登録</string>
     <string name="move3">連続タイマーを使う</string>
+    <string name="move4">list</string>
     <string name="move2">戻る</string>
     <string name="register">登録</string>
     <string name="open">+タイトル追加</string>

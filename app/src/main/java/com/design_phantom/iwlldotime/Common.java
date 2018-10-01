@@ -1,5 +1,7 @@
 package com.design_phantom.iwlldotime;
 
+import android.util.Log;
+
 public class Common {
 
 
@@ -28,6 +30,10 @@ public class Common {
         }
 
         return minute;
+    }
+
+    public static void log(String comment){
+        Log.i("INFO", comment);
     }
 
 }

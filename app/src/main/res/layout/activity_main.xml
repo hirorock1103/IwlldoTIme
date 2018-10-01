@@ -234,6 +234,13 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/bt_move4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/move4" />
+
+
+            <Button
                 android:id="@+id/bt_move"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

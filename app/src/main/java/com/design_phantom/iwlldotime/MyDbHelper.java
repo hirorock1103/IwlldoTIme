@@ -15,7 +15,7 @@ import java.util.List;
  * Created by amb01 on 2018/09/17.
  */
 
-public class MyDbHelper extends SQLiteOpenHelper{
+public class MyDbHelper extends SQLiteOpenHelper {
     private final static int version = 5;
     public final static String DBNAME = "PenginTimer.db";
     //Category
@@ -28,7 +28,7 @@ public class MyDbHelper extends SQLiteOpenHelper{
     public static final String TABLE_TIMER = "Timer";
     public static final String TIMER_COLUMN_ID = "timer_id";
     public static final String TIMER_COLUMN_MINUTES = "timer_minutes";
-    public static final String TIMER_COLUMN_SECOND= "timer_second";
+    public static final String TIMER_COLUMN_SECOND = "timer_second";
     public static final String TIMER_COLUMN_TITLE = "timer_title";
     public static final String TIMER_COLUMN_CREATEDATE = "category_createdate";
 
@@ -51,7 +51,7 @@ public class MyDbHelper extends SQLiteOpenHelper{
                 CATEGORY_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 CATEGORY_COLUMN_NAME + " text, " +
                 CATEGORY_COLUMN_CREATEDATE + " text " +
-                ");" ;
+                ");";
         db.execSQL(query);
 
         query = "CREATE TABLE " + TABLE_TIMER + "(" +
@@ -60,16 +60,16 @@ public class MyDbHelper extends SQLiteOpenHelper{
                 TIMER_COLUMN_SECOND + " text, " +
                 TIMER_COLUMN_TITLE + " text, " +
                 TIMER_COLUMN_CREATEDATE + " text " +
-                ");" ;
+                ");";
         db.execSQL(query);
 
         query = "CREATE TABLE " + TABLE_MATRIX + "(" +
                 MATRIX_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 MATRIX_COLUMN_CATEGORY_ID + " INTEGER, " +
-                MATRIX_COLUMN_TIMER_ID  + " INTEGER, " +
-                MATRIX_COLUMN_ORDER  + " INTEGER, " +
+                MATRIX_COLUMN_TIMER_ID + " INTEGER, " +
+                MATRIX_COLUMN_ORDER + " INTEGER, " +
                 MATRIX_COLUMN_CREATEDATE + " text " +
-                ");" ;
+                ");";
         db.execSQL(query);
 
     }
@@ -93,24 +93,24 @@ public class MyDbHelper extends SQLiteOpenHelper{
      * Category関連
      */
     //Add new Product
-    public int addCategory(Category category){
+    public int addCategory(Category category) {
         ContentValues values = new ContentValues();
-        values.put(CATEGORY_COLUMN_NAME,category.getCategory_name());
+        values.put(CATEGORY_COLUMN_NAME, category.getCategory_name());
         SQLiteDatabase db = getWritableDatabase();
-        long insertId = db.insert(TABLE_CATEGORY,null,values);
-        return (int)insertId;
+        long insertId = db.insert(TABLE_CATEGORY, null, values);
+        return (int) insertId;
     }
 
     //select
-    public List<Category> getCategoryList(){
+    public List<Category> getCategoryList() {
         List<Category> list = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_CATEGORY ;
+        String query = "SELECT * FROM " + TABLE_CATEGORY;
         //String query = "SELECT * FROM " + TABLE_CATEGORY + " ORDER BY " + CATEGORY_COLUMN_ID + " DESC ";
-        Cursor c = db.rawQuery(query,null);
+        Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
 
-        while(!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             Category category = new Category();
             //Log.i("DBTEST",c.getString(c.getColumnIndex(CATEGORY_COLUMN_ID)));
             category.setCategory_id(c.getInt(c.getColumnIndex(CATEGORY_COLUMN_ID)));
@@ -125,9 +125,9 @@ public class MyDbHelper extends SQLiteOpenHelper{
     }
 
     //delete
-    public void deleteCategory(int categoryId){
+    public void deleteCategory(int categoryId) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_COLUMN_ID +" = " + categoryId);
+        db.execSQL("DELETE FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_COLUMN_ID + " = " + categoryId);
     }
 
     /**
@@ -135,7 +135,7 @@ public class MyDbHelper extends SQLiteOpenHelper{
      */
 
     //addTimer
-    public void addTimer(Timer timer){
+    public void addTimer(Timer timer) {
         ContentValues values = new ContentValues();
         values.put(TIMER_COLUMN_TITLE, timer.getTimer_title());
         values.put(TIMER_COLUMN_MINUTES, timer.getTimer_minutes());
@@ -146,7 +146,7 @@ public class MyDbHelper extends SQLiteOpenHelper{
 
 
     //truncate
-    public void deleteAllCategory(){
+    public void deleteAllCategory() {
         String sql = "DELETE FROM " + TABLE_CATEGORY;
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sql);
@@ -154,16 +154,16 @@ public class MyDbHelper extends SQLiteOpenHelper{
 
 
     //select
-    public List<Timer> getTimerList(){
+    public List<Timer> getTimerList() {
         List<Timer> list = new ArrayList<>();
 
         SQLiteDatabase db = getWritableDatabase();
         String sql = "SELECT * FROM " + TABLE_TIMER + " ORDER BY " + TIMER_COLUMN_ID + " DESC";
-        Log.i("INFO" , sql);
-        Cursor c = db.rawQuery(sql,null);
+        Log.i("INFO", sql);
+        Cursor c = db.rawQuery(sql, null);
         c.moveToFirst();
 
-        while(!c.isAfterLast()){
+        while (!c.isAfterLast()) {
 
             Timer timer = new Timer();
             timer.setTimer_id(c.getInt(c.getColumnIndex(TIMER_COLUMN_ID)));
@@ -182,12 +182,12 @@ public class MyDbHelper extends SQLiteOpenHelper{
      */
 
     //select
-    public List<TimerCategory> getMatrixList(){
+    public List<TimerCategory> getMatrixList() {
         List<TimerCategory> list = new ArrayList<>();
         return list;
     }
 
-    public List<TimerCategory> getMatrixListByCategoryId(int id){
+    public List<TimerCategory> getMatrixListByCategoryId(int id) {
         List<TimerCategory> list = new ArrayList<>();
         String sql = "SELECT * FROM " + TABLE_MATRIX +
                 " WHERE " + MATRIX_COLUMN_CATEGORY_ID + " = " + id;
@@ -197,9 +197,9 @@ public class MyDbHelper extends SQLiteOpenHelper{
                 " WHERE " + TABLE_CATEGORY + "." + CATEGORY_COLUMN_ID + " = " + id;
 
         SQLiteDatabase db = getWritableDatabase();
-        Cursor c = db.rawQuery(sql,null);
+        Cursor c = db.rawQuery(sql, null);
         c.moveToFirst();
-        while(!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             TimerCategory matrix = new TimerCategory();
             matrix.setMatrix_id(c.getInt(c.getColumnIndex(MATRIX_COLUMN_ID)));
             matrix.setCategory_id(c.getInt(c.getColumnIndex(MATRIX_COLUMN_CATEGORY_ID)));
@@ -213,7 +213,7 @@ public class MyDbHelper extends SQLiteOpenHelper{
         return list;
     }
 
-    public List<JoinedMarix> getJoinedMatrixListByCategoryId(int id){
+    public List<JoinedMarix> getJoinedMatrixListByCategoryId(int id) {
         List<JoinedMarix> list = new ArrayList<>();
         String sql = "SELECT * FROM " + TABLE_MATRIX +
                 " WHERE " + MATRIX_COLUMN_CATEGORY_ID + " = " + id;
@@ -226,9 +226,9 @@ public class MyDbHelper extends SQLiteOpenHelper{
                 " WHERE " + TABLE_CATEGORY + "." + CATEGORY_COLUMN_ID + " = " + id;
 
         SQLiteDatabase db = getWritableDatabase();
-        Cursor c = db.rawQuery(sql,null);
+        Cursor c = db.rawQuery(sql, null);
         c.moveToFirst();
-        while(!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             TimerCategory matrix = new TimerCategory();
             Timer timer = new Timer();
             Category category = new Category();
@@ -256,18 +256,59 @@ public class MyDbHelper extends SQLiteOpenHelper{
         return list;
     }
 
+    public List<JoinedMarix> getJoinedMatrixList(){
 
-    public int addMatrix(TimerCategory matrix){
+        List<JoinedMarix> list = new ArrayList<>();
+        String sql = "SELECT *" +
+                " FROM " + TABLE_MATRIX + " INNER JOIN " + TABLE_CATEGORY +
+                " ON " + TABLE_CATEGORY + "." + CATEGORY_COLUMN_ID + " = " + TABLE_MATRIX + "." + MATRIX_COLUMN_CATEGORY_ID +
+                " INNER JOIN " + TABLE_TIMER +
+                " ON " + TABLE_TIMER + "." + TIMER_COLUMN_ID + " = " + TABLE_MATRIX + "." + MATRIX_COLUMN_TIMER_ID +
+                " ORDER BY "+ TABLE_MATRIX + "." + MATRIX_COLUMN_ID + " DESC ";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor c = db.rawQuery(sql, null);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            TimerCategory matrix = new TimerCategory();
+            Timer timer = new Timer();
+            Category category = new Category();
+            JoinedMarix joinedMarix = new JoinedMarix();
+
+            //Matrix11
+            matrix.setCategory_id(c.getInt(c.getColumnIndex(MATRIX_COLUMN_CATEGORY_ID)));
+            matrix.setTimer_id(c.getInt(c.getColumnIndex(MATRIX_COLUMN_TIMER_ID)));
+            matrix.setShowOrder(c.getInt(c.getColumnIndex(MATRIX_COLUMN_ORDER)));
+
+            //Category
+            category.setCategory_name(c.getString(c.getColumnIndex(CATEGORY_COLUMN_NAME)));
+            //Timer
+            timer.setTimer_title(c.getString(c.getColumnIndex(TIMER_COLUMN_TITLE)));
+            timer.setTimer_second(c.getInt(c.getColumnIndex(TIMER_COLUMN_SECOND)));
+
+            joinedMarix.setMatrix(matrix);
+            joinedMarix.setCategory(category);
+            joinedMarix.setTimer(timer);
+
+            list.add(joinedMarix);
+            c.moveToNext();
+        }
+
+        return list;
+
+
+    }
+
+
+    public int addMatrix(TimerCategory matrix) {
 
         ContentValues values = new ContentValues();
         SQLiteDatabase db = getWritableDatabase();
-        values.put(MATRIX_COLUMN_CATEGORY_ID,matrix.getCategory_id());
-        values.put(MATRIX_COLUMN_TIMER_ID,matrix.getTimer_id());
-        values.put(MATRIX_COLUMN_ORDER,matrix.getShowOrder());
+        values.put(MATRIX_COLUMN_CATEGORY_ID, matrix.getCategory_id());
+        values.put(MATRIX_COLUMN_TIMER_ID, matrix.getTimer_id());
+        values.put(MATRIX_COLUMN_ORDER, matrix.getShowOrder());
         long insertId = db.insert(TABLE_MATRIX, null, values);
-        return (int)insertId;
+        return (int) insertId;
     }
-
 
 
 }

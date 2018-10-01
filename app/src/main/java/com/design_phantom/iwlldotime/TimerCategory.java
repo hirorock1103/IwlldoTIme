@@ -13,8 +13,7 @@ public class TimerCategory {
     private String createdate;
 
 
-
-    TimerCategory(){
+    TimerCategory() {
 
     }
 

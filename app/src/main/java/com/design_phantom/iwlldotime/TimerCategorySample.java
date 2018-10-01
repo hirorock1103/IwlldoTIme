@@ -16,23 +16,24 @@ public class TimerCategorySample extends MyDbHelper {
         super(context);
     }
 
-    public int addCategory(Category category){
+    public int addCategory(Category category) {
         return super.addCategory(category);
     }
-    public void addTimer(Timer timer){
+
+    public void addTimer(Timer timer) {
         super.addTimer(timer);
     }
 
 
     //Sample を返す
-    public static List<Category> getCategorySample(){
+    public static List<Category> getCategorySample() {
         List<Category> list = new ArrayList<>();
 
         String[] categoryArr = {"筋トレ", "電車の中", "始業時", "ランニング"};
 
-        for (int i = 0; i < categoryArr.length; i++){
+        for (int i = 0; i < categoryArr.length; i++) {
             Category category = new Category();
-            category.setCategory_id(i+1);
+            category.setCategory_id(i + 1);
             category.setCategory_name(categoryArr[i]);
             category.setCreatedate("2018/01/22");
             Random random = new Random();
@@ -40,12 +41,12 @@ public class TimerCategorySample extends MyDbHelper {
             list.add(category);
         }
 
-        return  list;
+        return list;
 
     }
 
     //Category
-    public List<Category> getCategoryList(){
+    public List<Category> getCategoryList() {
 
         List<Category> list = super.getCategoryList();
 
@@ -53,12 +54,12 @@ public class TimerCategorySample extends MyDbHelper {
     }
 
     //matrix
-    public static List<TimerCategory> getMatrix(){
+    public static List<TimerCategory> getMatrix() {
         List<TimerCategory> list = new ArrayList<>();
 
         int[] idList = {1, 2, 3, 4};
 
-        for (int i = 0; i < idList.length; i++){
+        for (int i = 0; i < idList.length; i++) {
             TimerCategory matrix = new TimerCategory();
             matrix.setMatrix_id(idList[i]);
             matrix.setTimer_id(idList[i]);
@@ -70,29 +71,33 @@ public class TimerCategorySample extends MyDbHelper {
         return list;
     }
 
-    public List<TimerCategory> getMatrixListByCategoryId(int id){
+    public List<TimerCategory> getMatrixListByCategoryId(int id) {
 
         return super.getMatrixListByCategoryId(id);
     }
 
-    public List<JoinedMarix> getJoinedMatrixListByCategoryId(int id){
+    public List<JoinedMarix> getJoinedMatrixList(){
+        return super.getJoinedMatrixList();
+    }
+
+    public List<JoinedMarix> getJoinedMatrixListByCategoryId(int id) {
         return super.getJoinedMatrixListByCategoryId(id);
     }
 
-    public int addMatrix(TimerCategory matrix){
+    public int addMatrix(TimerCategory matrix) {
         return super.addMatrix(matrix);
     }
 
     //sample
-    public static List<Timer> getTimers(){
+    public static List<Timer> getTimers() {
 
         List<Timer> list = new ArrayList<>();
-        String[] titles = {"腕立て", "腹筋", "テキストフッター", "握力","勉強", "英語"};
-        Integer[] minutes = {12,22,14,33,22,5};
-        Integer[] secondes = {0,0,10,0,0,0};
-        for (int i = 0; i < titles.length; i++){
+        String[] titles = {"腕立て", "腹筋", "テキストフッター", "握力", "勉強", "英語"};
+        Integer[] minutes = {12, 22, 14, 33, 22, 5};
+        Integer[] secondes = {0, 0, 10, 0, 0, 0};
+        for (int i = 0; i < titles.length; i++) {
             Timer timer = new Timer();
-            timer.setTimer_id(i+1);
+            timer.setTimer_id(i + 1);
             timer.setTimer_title(titles[i]);
             timer.setTimer_minutes(minutes[i]);
             timer.setTimer_second(secondes[i]);
@@ -103,16 +108,16 @@ public class TimerCategorySample extends MyDbHelper {
     }
 
     //sample
-    public static Timer getTimerSampleByTimerId(int timerId){
+    public static Timer getTimerSampleByTimerId(int timerId) {
 
         Timer timer = new Timer();
         List<String[]> sampleListTitle = new ArrayList<>();
         List<Integer[]> sampleMinute = new ArrayList<>();
         List<Integer[]> sampleSecond = new ArrayList<>();
 
-        String[] titles = {"test","腕立て", "腹筋", "テキストフッター", "握力"};
-        Integer[] minutes = {5,4,12,1,2};
-        Integer[] seconds = {5,12,0,0,0};
+        String[] titles = {"test", "腕立て", "腹筋", "テキストフッター", "握力"};
+        Integer[] minutes = {5, 4, 12, 1, 2};
+        Integer[] seconds = {5, 12, 0, 0, 0};
 
         timer.setTimer_id(timerId);
         timer.setTimer_title(titles[timerId]);
@@ -124,24 +129,24 @@ public class TimerCategorySample extends MyDbHelper {
     }
 
     //sample を返す
-    public static List<Timer> getTimerSampleByCategoryId(int categoryId){
+    public static List<Timer> getTimerSampleByCategoryId(int categoryId) {
         List<Timer> list = new ArrayList<>();
         List<String[]> sampleListTitle = new ArrayList<>();
         List<Integer[]> sampleMinute = new ArrayList<>();
         List<Integer[]> sampleSecond = new ArrayList<>();
 
         String[] timerTitleKintore = {"腕立て", "腹筋", "テキストフッター", "握力"};
-        Integer[] timerKintoreMinute = {4,12,1,2};
-        Integer[] timerKintoreSecond = {12,0,0,0};
+        Integer[] timerKintoreMinute = {4, 12, 1, 2};
+        Integer[] timerKintoreSecond = {12, 0, 0, 0};
 
 
         String[] timerTitleInTrain = {"test", "読書", "英語"};
-        Integer[] timerInTrainMinute = {0, 24,32};
-        Integer[] timerInTrainSecond = {0, 12,0};
+        Integer[] timerInTrainMinute = {0, 24, 32};
+        Integer[] timerInTrainSecond = {0, 12, 0};
 
         String[] timerTitleBeforeWork = {"test", "メールチェック", "デスクトップ整理"};
-        Integer[] timerBeforeWorkMinute = {0, 4,12};
-        Integer[] timerBeforeWorkSecond = {0, 12,0};
+        Integer[] timerBeforeWorkMinute = {0, 4, 12};
+        Integer[] timerBeforeWorkSecond = {0, 12, 0};
 
         String[] timerTitleRunning = {"test", "ランニング"};
         Integer[] timerRunningMinute = {0, 4};
@@ -163,11 +168,13 @@ public class TimerCategorySample extends MyDbHelper {
         sampleSecond.add(timerRunningSecond);
 
 
-        for(int i = 0; i < sampleListTitle.size(); i++ ){
+        for (int i = 0; i < sampleListTitle.size(); i++) {
 
-            if(i != categoryId) {continue;}
+            if (i != categoryId) {
+                continue;
+            }
 
-            for(int j = 0; j < sampleListTitle.get(categoryId).length; j++){
+            for (int j = 0; j < sampleListTitle.get(categoryId).length; j++) {
 
                 // title , minute, secondがわかる
                 Timer timer = new Timer();

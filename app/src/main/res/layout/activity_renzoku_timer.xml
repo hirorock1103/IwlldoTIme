@@ -14,7 +14,6 @@
         android:orientation="vertical">
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,59 +40,6 @@
                 android:textColor="#000"
                 android:id="@+id/pengin_comment"
                 android:gravity="center"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity=""
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/bt_open_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/open_select_category" />
-
-            <!--<Button-->
-                <!--android:id="@+id/bt_open_timer"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/open_select_timer" />-->
-
-            <Button
-                android:id="@+id/bt_add_categry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_category" />
-
-
-            <Button
-                android:id="@+id/bt_delete_categry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_categry" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/layout_select_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity=""
-            android:visibility="visible"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text=""
                 />
 
         </LinearLayout>

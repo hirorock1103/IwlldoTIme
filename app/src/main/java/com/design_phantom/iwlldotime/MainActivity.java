@@ -45,17 +45,16 @@ public class MainActivity extends AppCompatActivity {
     private int timerType = 0;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         layout = findViewById(R.id.layout);
-        inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         //登録タイマー
-        timerType = getTimerType(currentCategoryid , currentTimerId);
+        timerType = getTimerType(currentCategoryid, currentTimerId);
 
         //アニメ部分 a1アニメ
         findViewById(R.id.monster).startAnimation(AnimationUtils.loadAnimation(this, R.anim.a1));
@@ -70,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
         //showCategory(timerType,currentCategoryid,currentTimerId);
 
         //移動ボタン
+        Button btMoveList = findViewById(R.id.bt_move4);
+        btMoveList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, TimerListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button btMove = findViewById(R.id.bt_move);
         btMove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,31 +110,31 @@ public class MainActivity extends AppCompatActivity {
         bts[3] = findViewById(R.id.bt_start);
         bts[4] = findViewById(R.id.bt_clear);
 
-        for(int i = 0; i < bts.length; i++){
+        for (int i = 0; i < bts.length; i++) {
 
             bts[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int second = 0;
                     int minute = 0;
-                    switch (view.getId()){
+                    switch (view.getId()) {
 
-                        case R.id.bt_10second :
+                        case R.id.bt_10second:
                             second += (Integer.parseInt(setTimeTextSecond.getText().toString()) + 10);
-                            setTimeTextSecond.setText( String.format("%02d", second) );
+                            setTimeTextSecond.setText(String.format("%02d", second));
                             break;
-                        case R.id.bt_1minute :
+                        case R.id.bt_1minute:
                             minute += Integer.parseInt(setTimeTextMinute.getText().toString()) + 1;
-                            setTimeTextMinute.setText( String.format("%02d", minute) );
+                            setTimeTextMinute.setText(String.format("%02d", minute));
                             break;
-                        case R.id.bt_10minute :
+                        case R.id.bt_10minute:
                             minute += Integer.parseInt(setTimeTextMinute.getText().toString()) + 10;
-                            setTimeTextMinute.setText( String.format("%02d", minute) );
+                            setTimeTextMinute.setText(String.format("%02d", minute));
                             break;
 
-                        case R.id.bt_clear :
+                        case R.id.bt_clear:
 
-                            if(timer != null){
+                            if (timer != null) {
                                 timer.cancel();
                             }
 
@@ -140,10 +148,10 @@ public class MainActivity extends AppCompatActivity {
                             isPushedFirstStart = false;
                             break;
 
-                        case R.id.bt_start :
+                        case R.id.bt_start:
 
                             //タイマー起動かどうかで処理分ける
-                            if(isStart == true){
+                            if (isStart == true) {
 
                                 //タイマー起動中
                                 timer.cancel();
@@ -153,30 +161,30 @@ public class MainActivity extends AppCompatActivity {
                                 bts[3].setText("再開");
 
 
-                            }else{
+                            } else {
 
                                 //start Timer準備
                                 int sec = Integer.parseInt(setTimeTextSecond.getText().toString());
                                 int min = Integer.parseInt(setTimeTextMinute.getText().toString());
                                 timerSecond = sec + (min * 60);
 
-                                if(timerSecond == 0){
+                                if (timerSecond == 0) {
                                     //カウントがセットされていない
                                     Toast.makeText(MainActivity.this, "タイマーがセットされていません！", Toast.LENGTH_SHORT).show();
 
-                                }else{
+                                } else {
 
                                     //start timer
                                     startTimer(timerSecond);
 
                                     //登録するかどうかのジャッジ判定
-                                    if(isPushedFirstStart == false){
+                                    if (isPushedFirstStart == false) {
 
-                                        if(edit_title.getText().toString().equals("") == false ){
+                                        if (edit_title.getText().toString().equals("") == false) {
 
-                                            penginComment.setText("『" +  edit_title.getText() + "』というタイトルでタイマーを登録するよ！");
-                                            Toast.makeText(MainActivity.this,"timerStart(初回) & 登録対象："
-                                                    + edit_title.getText().toString() ,Toast.LENGTH_SHORT).show();
+                                            penginComment.setText("『" + edit_title.getText() + "』というタイトルでタイマーを登録するよ！");
+                                            Toast.makeText(MainActivity.this, "timerStart(初回) & 登録対象："
+                                                    + edit_title.getText().toString(), Toast.LENGTH_SHORT).show();
                                             TimerCategorySample manager = new TimerCategorySample(MainActivity.this);
 
                                             Timer timer = new Timer();
@@ -184,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                                             timer.setTimer_second(timerSecond);
                                             manager.addTimer(timer);
 
-                                        }else{
+                                        } else {
 
                                             Toast.makeText(MainActivity.this, "タイマーを登録するにはタイトルを入力してください。", Toast.LENGTH_SHORT).show();
 
@@ -214,19 +222,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //タイマーの種類
-    public int getTimerType(int currentCategoryid,int currentTimerId){
+    public int getTimerType(int currentCategoryid, int currentTimerId) {
         int type = 0;
 
-        if(currentCategoryid == 0 && currentTimerId == 0){
+        if (currentCategoryid == 0 && currentTimerId == 0) {
             //新規タイマー
             type = 0;
-        }else if(currentCategoryid == 0 && currentTimerId != 0){
+        } else if (currentCategoryid == 0 && currentTimerId != 0) {
             //登録タイマー（単発）
             type = 1;
-        }else if(currentCategoryid != 0 && currentTimerId != 0){
+        } else if (currentCategoryid != 0 && currentTimerId != 0) {
             //連続タイマー
             type = 2;
-        }else{
+        } else {
             //Error
         }
 
@@ -234,9 +242,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Timer start!
-    public void startTimer(int second){
+    public void startTimer(int second) {
 
-        timer = new CountDownTimer(second * 1000,10) {
+        timer = new CountDownTimer(second * 1000, 10) {
             @Override
             public void onTick(long l) {
 
@@ -276,32 +284,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //カテゴリ表示
-    public void showCategory(int timerType,int currentCategoryid, int currentTimerId){
+    public void showCategory(int timerType, int currentCategoryid, int currentTimerId) {
 
         StringBuilder builder = new StringBuilder();
 
-        if(timerType == 0){
+        if (timerType == 0) {
 
-        }else if(timerType == 1){
+        } else if (timerType == 1) {
 
             Timer timer = TimerCategorySample.getTimerSampleByTimerId(currentTimerId);
-            builder.append(timer.getTimer_title() + "("+timer.getTimer_minutes() + ":" + timer.getTimer_second() +")");
+            builder.append(timer.getTimer_title() + "(" + timer.getTimer_minutes() + ":" + timer.getTimer_second() + ")");
 
-        }else if(timerType == 2){
+        } else if (timerType == 2) {
 
             List<Category> listCategory = TimerCategorySample.getCategorySample();
             List<Timer> listTimer = TimerCategorySample.getTimerSampleByCategoryId(0);
 
             builder.append(listCategory.get(0).getCategory_name() + "\n");
 
-            for (int i = 0; i < listTimer.size(); i++){
-                builder.append(listTimer.get(i).getTimer_title() + "("+ listTimer.get(i).getTimer_minutes() + " : " + listTimer.get(i).getTimer_second() +")" + "→");
+            for (int i = 0; i < listTimer.size(); i++) {
+                builder.append(listTimer.get(i).getTimer_title() + "(" + listTimer.get(i).getTimer_minutes() + " : " + listTimer.get(i).getTimer_second() + ")" + "→");
             }
 
         }
 
     }
-
 
 
 }
