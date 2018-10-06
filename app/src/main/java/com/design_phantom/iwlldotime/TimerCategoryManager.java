@@ -10,9 +10,9 @@ import java.util.Random;
  * Created by amb01 on 2018/09/15.
  */
 
-public class TimerCategorySample extends MyDbHelper {
+public class TimerCategoryManager extends MyDbHelper {
 
-    public TimerCategorySample(Context context) {
+    public TimerCategoryManager(Context context) {
         super(context);
     }
 

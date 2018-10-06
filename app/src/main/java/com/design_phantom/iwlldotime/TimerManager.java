@@ -12,7 +12,7 @@ public class TimerManager  {
 
     public List<Timer> getTimers(){
         List<Timer> list = new ArrayList<>();
-        list = TimerCategorySample.getTimers();
+        list = TimerCategoryManager.getTimers();
         return list;
     }
 

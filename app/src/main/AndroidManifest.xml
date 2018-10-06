@@ -18,8 +18,9 @@
         </activity>
         <activity android:name=".RenzokuTimerActivity" />
         <activity android:name=".MakeMtrxActivity" />
-        <!--<activity android:name=".MainActivity" />-->
+        <!-- <activity android:name=".MainActivity" /> -->
 
+        <activity android:name=".AddTimerActivity"></activity>
     </application>
 
 </manifest>

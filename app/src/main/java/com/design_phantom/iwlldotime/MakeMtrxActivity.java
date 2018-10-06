@@ -1,5 +1,7 @@
 package com.design_phantom.iwlldotime;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,23 +19,15 @@ import java.util.List;
 
 public class MakeMtrxActivity extends AppCompatActivity {
 
-    private TimerCategorySample manager;
+    private TimerCategoryManager manager;
     private LinearLayout selecedTimerLayout;
     private LinearLayout timerLayout;
     private LinearLayout showTimerAreaLayout;
     private Button bt_ok;
-    private Button[] items;
-    private EditText categoryNameInput;
 
     //data
-    private List<Category> categoryList;
-    private List<TimerCategory> matrixList;
     private List<Timer> timerList;
     private List<Timer> selectedTimerList;
-
-    //others
-    InputMethodManager inputMethodManager;
-    LinearLayout layout;
 
 
     @Override
@@ -41,14 +35,8 @@ public class MakeMtrxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_mtrx);
 
-        inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        layout = findViewById(R.id.layout);
-
-        manager = new TimerCategorySample(this);
+        manager = new TimerCategoryManager(this);
         //getData
-        categoryList = manager.getCategoryList();
-        matrixList = manager.getMatrixList();
-
         timerList = manager.getTimerList();
         selectedTimerList = new ArrayList<>();
 
@@ -57,57 +45,49 @@ public class MakeMtrxActivity extends AppCompatActivity {
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText edit_category_title = findViewById(R.id.edit_category_title);
-                Toast.makeText(MakeMtrxActivity.this, edit_category_title.getText(), Toast.LENGTH_SHORT).show();
-                if (edit_category_title.getText().equals("") == true) {
-                    Toast.makeText(MakeMtrxActivity.this, "cant register", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MakeMtrxActivity.this, "register", Toast.LENGTH_SHORT).show();
 
+                final EditText edit_category_title = new EditText(MakeMtrxActivity.this);
+                new AlertDialog.Builder(MakeMtrxActivity.this)
+                        .setTitle("タイマー名の設定")
+                        .setMessage("タイマーの名前を決めてください。")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    if (selectedTimerList.size() > 0) {
+                                if (edit_category_title.getText().equals("") == true) {
+                                    Toast.makeText(MakeMtrxActivity.this, "cant register", Toast.LENGTH_SHORT).show();
+                                } else {
 
-                        //カテゴリの登録
-                        Category category = new Category();
-                        category.setCategory_name(edit_category_title.getText().toString());
-
-                        TimerCategorySample manager = new TimerCategorySample(MakeMtrxActivity.this);
-                        int insertId = manager.addCategory(category);
-                        if (insertId > 0) {
-
-                            int order = 0;
-                            for (Timer timer : selectedTimerList) {
-
-                                //timerが選択されていれば、マトリクスを登録する
-                                TimerCategory matrix = new TimerCategory();
-
-                                matrix.setCategory_id(insertId);
-                                matrix.setTimer_id(timer.getTimer_id());
-                                matrix.setShowOrder(order);
-
-                                int id = manager.addMatrix(matrix);
-
-                                Log.i("INFO", "insertId:" + id);
-
-                                order++;
+                                    if (selectedTimerList.size() > 0) {
+                                        //カテゴリの登録
+                                        Category category = new Category();
+                                        category.setCategory_name(edit_category_title.getText().toString());
+                                        TimerCategoryManager manager = new TimerCategoryManager(MakeMtrxActivity.this);
+                                        int insertId = manager.addCategory(category);
+                                        if (insertId > 0) {
+                                            int order = 0;
+                                            for (Timer timer : selectedTimerList) {
+                                                //timerが選択されていれば、マトリクスを登録する
+                                                TimerCategory matrix = new TimerCategory();
+                                                matrix.setCategory_id(insertId);
+                                                matrix.setTimer_id(timer.getTimer_id());
+                                                matrix.setShowOrder(order);
+                                                int id = manager.addMatrix(matrix);
+                                                order++;
+                                            }
+                                            //登録された！
+                                        }
+                                    } else {
+                                        //cant register
+                                    }
+                                }
 
                             }
+                        })
+                        .setView(edit_category_title)
+                        .setNegativeButton("Cancel", null)
+                        .show();
 
-                            //登録された！
-
-
-                        }
-
-
-                    } else {
-
-                        //cant register
-
-
-                    }
-
-
-                }
             }
         });
 
@@ -117,11 +97,6 @@ public class MakeMtrxActivity extends AppCompatActivity {
 
         //show all timer
         showAllTimer(timerList);
-
-        //select each timer
-
-        //add Matrix
-
 
     }
 
@@ -177,23 +152,11 @@ public class MakeMtrxActivity extends AppCompatActivity {
     }
 
 
-    //checkSelectedTimer
+    //checkSelectedTimer ※確認debug用
     public void checkSelectedTimer() {
         for (Timer timer : selectedTimerList) {
             Log.i("INFO:格納timer", timer.getTimer_title());
         }
     }
-
-
-    //
-    public boolean onTouchEvent(MotionEvent event) {
-        //キーボードを隠す
-        inputMethodManager.hideSoftInputFromWindow(layout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        //背景にフォーカスを移す
-        layout.requestFocus();
-
-        return false;
-    }
-
 
 }

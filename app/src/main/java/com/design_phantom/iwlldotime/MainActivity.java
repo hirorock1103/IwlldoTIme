@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                                             penginComment.setText("『" + edit_title.getText() + "』というタイトルでタイマーを登録するよ！");
                                             Toast.makeText(MainActivity.this, "timerStart(初回) & 登録対象："
                                                     + edit_title.getText().toString(), Toast.LENGTH_SHORT).show();
-                                            TimerCategorySample manager = new TimerCategorySample(MainActivity.this);
+                                            TimerCategoryManager manager = new TimerCategoryManager(MainActivity.this);
 
                                             Timer timer = new Timer();
                                             timer.setTimer_title(edit_title.getText().toString());
@@ -292,13 +292,13 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (timerType == 1) {
 
-            Timer timer = TimerCategorySample.getTimerSampleByTimerId(currentTimerId);
+            Timer timer = TimerCategoryManager.getTimerSampleByTimerId(currentTimerId);
             builder.append(timer.getTimer_title() + "(" + timer.getTimer_minutes() + ":" + timer.getTimer_second() + ")");
 
         } else if (timerType == 2) {
 
-            List<Category> listCategory = TimerCategorySample.getCategorySample();
-            List<Timer> listTimer = TimerCategorySample.getTimerSampleByCategoryId(0);
+            List<Category> listCategory = TimerCategoryManager.getCategorySample();
+            List<Timer> listTimer = TimerCategoryManager.getTimerSampleByCategoryId(0);
 
             builder.append(listCategory.get(0).getCategory_name() + "\n");
 

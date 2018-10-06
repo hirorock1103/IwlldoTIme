@@ -2,16 +2,19 @@ package com.design_phantom.iwlldotime;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,13 +35,14 @@ public class RenzokuTimerActivity extends AppCompatActivity {
     private TextView setTimeTextMinute;
     private TextView penginComment;
     private Button[] bts;
+    private LinearLayout timer_navgation_area;
 
     //
+    private int categoryId;
     private Timer selectedTimer;
     private List<Timer> matrixTimerList;
-
-    //class
-    private TimerCategorySample manager;
+    private TimerCategoryManager manager;
+    private int order = 0;
 
     //タイマー関連
     private int timerSecond = 0;
@@ -46,18 +50,7 @@ public class RenzokuTimerActivity extends AppCompatActivity {
     CountDownTimer timer;
 
     //連続タイマー用
-    private boolean interval = true;
-
-    //現在実行中のタイマーID
-    private int currentTimerId = 2;
-    //現在実行中のカテゴリーID
-    private int currentCategoryid = 2;
-
-    //タイマータイプ : 0:通常 1:登録タイマー 2:連続タイマー
-    private int timerType = 0;
-
-    //あとで削除
-    private TextView description;
+    private boolean interval = false;
 
 
     @Override
@@ -78,39 +71,50 @@ public class RenzokuTimerActivity extends AppCompatActivity {
         penginComment = findViewById(R.id.pengin_comment);
 
         //カテゴリエリアにカテゴリ情報を表示
-        description = findViewById(R.id.description);
-
+        timer_navgation_area = findViewById(R.id.timer_navgation_area);
 
         //遷移元からintentにセットされた値を取得する。
         Intent intent = getIntent();
-        int categoryId = intent.getIntExtra("categoryId", 0);
+        categoryId = intent.getIntExtra("categoryId", 0);
 
-        try{
+        try {
 
             //Category list
-            final TimerCategorySample manager = new TimerCategorySample(RenzokuTimerActivity.this);
+            manager = new TimerCategoryManager(RenzokuTimerActivity.this);
             List<JoinedMarix> joinedMarixList = manager.getJoinedMatrixListByCategoryId(categoryId);
 
-            for(JoinedMarix matrix : joinedMarixList){
+            String categoryName = "";
+            for (JoinedMarix matrix : joinedMarixList) {
                 //実行するタイマーをセットする
                 matrixTimerList.add(matrix.getTimer());
-                Common.log(matrix.getTimer().getTimer_title());
+                categoryName = matrix.getCategory().getCategory_name();
             }
 
-            if(joinedMarixList.size() > 0){
-                initTimer(matrixTimerList.get(0));
-                showCategory( categoryId, matrixTimerList.get(0).getTimer_id());
+            if (matrixTimerList.size() > 1) {
+                //timerListのタイマーが２つ以上ならintervalを有効にする
+                interval = true;
+            }
+
+            if (categoryName != "") {
+                //set pengin comment
+                penginComment.setText(categoryName + "を実行するよ！");
+            }
+
+            if (joinedMarixList.size() > 0) {
+                //実行するタイマーを特定
+                selectedTimer = matrixTimerList.get(0);
+                //タイマー時間セット
+                initTimer(selectedTimer);
+                //文字列表示
+                showCategory(joinedMarixList, selectedTimer, interval);
             }
 
 
-        }catch(Exception e){
+        } catch (Exception e) {
 
-
-
-
+            Common.log(e.getMessage());
 
         }
-
 
         //戻るボタン
         Button btBack = findViewById(R.id.bt_move_back);
@@ -138,15 +142,52 @@ public class RenzokuTimerActivity extends AppCompatActivity {
 
                         case R.id.bt_clear:
 
+
                             if (timer != null) {
                                 timer.cancel();
                             }
 
                             isStart = false;
+                            interval = false;
+                            order = 0;
+                            try {
 
-                            //isStart = false;
-                            setTimeTextSecond.setText("00");
-                            setTimeTextMinute.setText("00");
+                                List<JoinedMarix> joinedMarixList = manager.getJoinedMatrixListByCategoryId(categoryId);
+
+                                matrixTimerList = new ArrayList<>();
+
+                                String categoryName = "";
+                                for (JoinedMarix matrix : joinedMarixList) {
+                                    //実行するタイマーをセットする
+                                    matrixTimerList.add(matrix.getTimer());
+                                    categoryName = matrix.getCategory().getCategory_name();
+                                }
+
+                                if (categoryName != "") {
+                                    penginComment.setText(categoryName + "をもとにもどしたよ！");
+                                }
+
+                                if (matrixTimerList.size() > 1) {
+                                    //timerListのタイマーが２つ以上ならintervalを有効にする
+                                    interval = true;
+                                }
+
+                                if (joinedMarixList.size() > 0) {
+                                    //実行するタイマーを特定
+                                    selectedTimer = matrixTimerList.get(0);
+                                    //タイマー時間セット
+                                    initTimer(selectedTimer);
+                                    //文字列表示
+                                    showCategory(joinedMarixList, selectedTimer, interval);
+                                }
+
+
+                            } catch (Exception e) {
+
+                                Common.log(e.getMessage());
+
+                            }
+
                             bts[0].setText("スタート!");
                             timerSecond = 0;
                             break;
@@ -169,7 +210,6 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                                 int sec = Integer.parseInt(setTimeTextSecond.getText().toString());
                                 int min = Integer.parseInt(setTimeTextMinute.getText().toString());
                                 timerSecond = sec + (min * 60);
-                                Log.i("INFO", "timerSecond : " + String.valueOf(timerSecond));
 
                                 if (timerSecond == 0) {
                                     //カウントがセットされていない
@@ -185,6 +225,10 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                                     //ボタンの文言変更
                                     bts[0].setText("一時停止");
 
+                                    //showCategory
+                                    List<JoinedMarix> matrixList = manager.getJoinedMatrixListByCategoryId(categoryId);
+                                    showCategory(matrixList, matrixTimerList.get(0), interval);
+
                                 }
 
                             }
@@ -198,10 +242,21 @@ public class RenzokuTimerActivity extends AppCompatActivity {
 
     }
 
-    //
+    //timer を初期化する
     public void initTimer(Timer timer) {
 
-        setTimeTextSecond.setText(String.valueOf(timer.getTimer_second()));
+        int second = 0;
+        int minute = 0;
+        if (timer.getTimer_second() < 60) {
+            second = timer.getTimer_second();
+            Common.log(String.valueOf(second));
+        } else {
+            second = timer.getTimer_second() % 60;
+            minute = timer.getTimer_second() / 60;
+        }
+
+        setTimeTextSecond.setText(String.format("%02d", second));
+        setTimeTextMinute.setText(String.format("%02d", minute));
 
     }
 
@@ -225,19 +280,22 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                 //実行したタイマーは実行リストから除去
 
                 Toast.makeText(RenzokuTimerActivity.this, "size before:" + matrixTimerList.size(), Toast.LENGTH_SHORT).show();
-                if(matrixTimerList.size() > 0){
+                if (matrixTimerList.size() > 0) {
 
                     //Intervalをセットする
-                    if(interval == true){
+                    if (interval == true) {
 
                         Timer timer = new Timer();
                         timer.setTimer_title("interval");
                         timer.setTimer_second(INTERVAL_TIME);
                         initTimer(timer);
-                        startTimer(INTERVAL_TIME+1);
+                        startTimer(INTERVAL_TIME + 1);
+
+                        List<JoinedMarix> matrixList = manager.getJoinedMatrixListByCategoryId(categoryId);
+                        showCategory(matrixList, matrixTimerList.get(0), interval);
                         interval = false;
 
-                    }else{
+                    } else {
 
                         matrixTimerList.remove(0);
 
@@ -246,13 +304,19 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                             //実行タイマーが残っていればタイマーを実行
                             if (matrixTimerList.size() > 0) {
 
-                                initTimer(matrixTimerList.get(0));
-                                startTimer(matrixTimerList.get(0).getTimer_second()+1);
+                                //実行タイマーの順番をインクリメント
+                                order++;
 
-                                if(matrixTimerList.size() > 1){
+                                initTimer(matrixTimerList.get(0));
+                                startTimer(matrixTimerList.get(0).getTimer_second() + 1);
+
+                                List<JoinedMarix> matrixList = manager.getJoinedMatrixListByCategoryId(categoryId);
+                                showCategory(matrixList, matrixTimerList.get(0), false);
+
+                                if (matrixTimerList.size() > 1) {
                                     interval = true;
                                 }
-                                
+
 
                             } else {
 
@@ -264,6 +328,8 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                                 //ボタンの文言変更
                                 bts[0].setText("スタート");
                             }
+
+
                         } catch (Exception e) {
 
                             Toast.makeText(RenzokuTimerActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -286,23 +352,78 @@ public class RenzokuTimerActivity extends AppCompatActivity {
     }
 
 
-
     //カテゴリ表示
-    public void showCategory(int currentCategoryid, int currentTimerId) {
+    public void showCategory(List<JoinedMarix> list, Timer selectedTimer, boolean isInterval) {
 
-        StringBuilder builder = new StringBuilder();
 
-        List<Category> listCategory = TimerCategorySample.getCategorySample();
-        List<Timer> listTimer = TimerCategorySample.getTimerSampleByCategoryId(0);
+        TimerTime timeManager = new TimerTime();
 
-        builder.append(listCategory.get(0).getCategory_name() + "\n");
+        //VIEW
+        int i = 1;
+        timer_navgation_area.removeAllViews();
+        for (JoinedMarix matrix : list) {
 
-        for (int i = 0; i < listTimer.size(); i++) {
-            builder.append(listTimer.get(i).getTimer_title() + "(" + listTimer.get(i).getTimer_minutes() + " : " + listTimer.get(i).getTimer_second() + ")" + "→");
+            TextView textView = new TextView(RenzokuTimerActivity.this);
+            timeManager.change(matrix.getTimer().getTimer_second());
+            int second = timeManager.getSecond();
+            int minute = timeManager.getMinute();
+
+            textView.setText(matrix.getTimer().getTimer_title() + "\n(" + String.format("%02d", minute) + ":" + String.format("%02d", second) + ")");
+            textView.setPadding(5, 3, 5, 3);
+            textView.setTextSize(15);
+            textView.setGravity(Gravity.CENTER);
+
+            if (order == matrix.getMatrix().getShowOrder()) {
+                textView.setTextColor(Color.RED);
+            }
+
+
+            ImageView img = new ImageView(RenzokuTimerActivity.this);
+            img.setImageDrawable(getDrawable(android.R.drawable.ic_lock_idle_alarm));
+            timer_navgation_area.addView(img);
+            timer_navgation_area.addView(textView);
+
+            if (i < list.size()) {
+                TextView arrow = new TextView(RenzokuTimerActivity.this);
+                arrow.setText("→");
+                timer_navgation_area.addView(arrow);
+            }
+
+
+            i++;
+
         }
 
-        description.setText(builder.toString());
+    }
 
+
+    private class TimerTime {
+
+        private int minute;
+        private int second;
+
+        TimerTime() {
+
+        }
+
+        public void change(int second) {
+            if (second < 60) {
+                this.second = second;
+                this.minute = 0;
+            } else {
+
+                this.second = second % 60;
+                this.minute = second / 60;
+            }
+        }
+
+        public int getMinute() {
+            return minute;
+        }
+
+        public int getSecond() {
+            return second;
+        }
     }
 
 

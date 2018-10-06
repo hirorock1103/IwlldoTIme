@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public class MyDbHelper extends SQLiteOpenHelper {
-    private final static int version = 5;
+    private final static int version = 6;
     public final static String DBNAME = "PenginTimer.db";
     //Category
     public static final String TABLE_CATEGORY = "Category";
@@ -244,6 +244,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
             //Timer
             timer.setTimer_title(c.getString(c.getColumnIndex(TIMER_COLUMN_TITLE)));
             timer.setTimer_second(c.getInt(c.getColumnIndex(TIMER_COLUMN_SECOND)));
+            timer.setTimer_id(c.getInt(c.getColumnIndex(TIMER_COLUMN_ID)));
 
             joinedMarix.setMatrix(matrix);
             joinedMarix.setCategory(category);

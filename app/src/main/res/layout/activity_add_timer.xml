@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.design_phantom.iwlldotime.RenzokuTimerActivity">
+    tools:context="com.design_phantom.iwlldotime.MainActivity">
 
 
     <LinearLayout
@@ -32,44 +32,19 @@
 
             <TextView
                 style="@style/penginFukiasi1"
-                android:text="@string/pengin_comment_2"
+                android:text="@string/pengin_comment_1"
                 android:id="@+id/pengin_comment"
                 />
 
         </LinearLayout>
 
-        <HorizontalScrollView
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <LinearLayout
-                android:id="@+id/timer_navgation_area"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-                <!--android:layout_gravity="center"-->
-
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
 
         <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:layout_gravity="center"
             android:layout_weight="0"
-            android:background="@drawable/circle01"
             android:orientation="horizontal">
 
 
@@ -78,7 +53,7 @@
                 android:layout_height="70dp"
                 android:textSize="60dp"
                 android:text="00"
-                android:textColor="#fff"
+                android:textColor="#ccc"
                 android:id="@+id/text_count_minute"
                 android:gravity="bottom"
                 />
@@ -88,7 +63,7 @@
                 android:layout_height="70dp"
                 android:textSize="20sp"
                 android:text="分"
-                android:textColor="#fff"
+                android:textColor="#ccc"
                 android:gravity="bottom"
                 />
 
@@ -97,7 +72,7 @@
                 android:layout_height="70dp"
                 android:textSize="60sp"
                 android:text="00"
-                android:textColor="#fff"
+                android:textColor="#ccc"
                 android:id="@+id/text_count_second"
                 android:gravity="bottom"
                 />
@@ -107,7 +82,7 @@
                 android:layout_height="70dp"
                 android:textSize="20sp"
                 android:text="秒"
-                android:textColor="#fff"
+                android:textColor="#ccc"
                 android:gravity="bottom"
                 />
 
@@ -135,6 +110,50 @@
             android:orientation="vertical">
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    style="@style/myButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bt_10second"
+                    android:text="@string/bt_msg_10s"
+                    />
+
+                <Button
+                    style="@style/myButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bt_1minute"
+                    android:text="@string/bt_msg_1m"
+                    />
+
+                <Button
+                    style="@style/myButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bt_10minute"
+                    android:text="@string/bt_msg_10m"
+                    />
+
+                <!--<Button-->
+                <!--style="@style/myButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/bt_30minute"-->
+                <!--android:text="@string/bt_msg_30m"-->
+                <!--/>-->
+
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -148,9 +167,9 @@
                     style="@style/myButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bt_start_text"
+                    android:text="@string/bt_ok_text"
                     android:layout_gravity="center"
-                    android:id="@+id/bt_start"
+                    android:id="@+id/bt_reg"
                     />
                 <Button
                     style="@style/myButton2"
@@ -161,23 +180,18 @@
                     android:id="@+id/bt_clear"
                     />
 
-
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="right"
-            android:orientation="horizontal">
-
             <Button
-                android:id="@+id/bt_move_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/move2" />
+                android:text="@string/bt_move_to_make_matrix"
+                android:layout_gravity="right"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/square01"
+                android:id="@+id/bt_add_matrix"
+                />
 
         </LinearLayout>
 

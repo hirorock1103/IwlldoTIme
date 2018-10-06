@@ -29,7 +29,7 @@ public class myAdapter extends ArrayAdapter<Category> {
         TextView categor = view.findViewById(R.id.category_name);
         categor.setText(categoryName);
 
-        TimerCategorySample manager = new TimerCategorySample(getContext());
+        TimerCategoryManager manager = new TimerCategoryManager(getContext());
         List<JoinedMarix> list = manager.getJoinedMatrixListByCategoryId(getItem(position).getCategory_id());
 
         StringBuilder builder = new StringBuilder();

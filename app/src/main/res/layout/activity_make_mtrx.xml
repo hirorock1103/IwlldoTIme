@@ -31,67 +31,13 @@
                 android:src="@drawable/pengin" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:textSize="12sp"
+                style="@style/penginFukiasi1"
                 android:text="@string/pengin_comment_1"
-                android:layout_weight="9"
-                android:background="@drawable/fukidashi_1"
-                android:textColor="#000"
                 android:id="@+id/pengin_comment_3"
-                android:gravity="center"
                 />
 
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity=""
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/category_name" />
-
-
-            <EditText
-                android:id="@+id/edit_category_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:ems="10"
-                android:text="" />
-
-
-        </LinearLayout>
-
-
-
-        <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:text="@string/agreement_text"-->
-        <!--android:gravity="center"-->
-        <!--/>-->
-
-        <LinearLayout
-            android:id="@+id/layout_matix_selected_result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:background="#ffcbcb"
-            android:gravity="center"
-            android:layout_weight="0"
-            android:orientation="horizontal">
-
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,30 +57,83 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:layout_weight="0"
-            android:orientation="vertical">
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:text="@string/agreement_text"-->
+        <!--android:gravity="center"-->
+        <!--/>-->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_weight="0"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/layout_show_timer_area"
+                android:id="@+id/layout_matix_selected_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:padding="10dp"
+                android:background="#8aa6ff"
+                android:gravity="left"
+                android:layout_weight="1"
                 android:orientation="horizontal">
-
-
 
             </LinearLayout>
 
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:background="#63cc88"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/layout_show_timer_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
         </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
 
     </LinearLayout>
 
