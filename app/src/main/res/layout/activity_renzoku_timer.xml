@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:textSize="20sp"
-                android:text="分"
+                android:text="@string/minutes"
                 android:textColor="#fff"
                 android:gravity="bottom"
                 />
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:textSize="20sp"
-                android:text="秒"
+                android:text="@string/second"
                 android:textColor="#fff"
                 android:gravity="bottom"
                 />

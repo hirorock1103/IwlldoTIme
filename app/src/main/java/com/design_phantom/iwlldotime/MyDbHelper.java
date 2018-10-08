@@ -152,6 +152,12 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    //delete
+    public void deleteTimer(int timerId) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_TIMER + " WHERE " + TIMER_COLUMN_ID + " = " + timerId);
+    }
+
 
     //select
     public List<Timer> getTimerList() {

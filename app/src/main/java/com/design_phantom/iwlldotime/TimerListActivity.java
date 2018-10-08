@@ -102,15 +102,15 @@ public class TimerListActivity extends AppCompatActivity {
 
                 final Category category = (Category)adapterView.getItemAtPosition(i);
                 new AlertDialog.Builder(TimerListActivity.this)
-                        .setTitle("カテゴリの削除")
-                        .setMessage("選択したカテゴリを削除します。よろしいですか？")
+                        .setTitle(getString(R.string.dialog0_title))
+                        .setMessage(getString(R.string.dialog0_msg))
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 TimerCategoryManager manager = new TimerCategoryManager(TimerListActivity.this);
                                 String categoryName = category.getCategory_name();
                                 manager.deleteCategory(category.getCategory_id());
-                                Common.toast(TimerListActivity.this, categoryName + "を削除しました！");
+                                Common.toast(TimerListActivity.this, categoryName + getString(R.string.dialog0_msg2));
                                 //listView更新
                                 categoryList = timerManager.getCategoryList();
 

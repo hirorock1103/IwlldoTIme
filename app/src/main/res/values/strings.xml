@@ -1,15 +1,47 @@
 <resources>
-    <string name="app_name">連続（複数）タイマー</string>
-    <string name="bt_start_text">スタート！</string>
-    <string name="bt_ok_text">登録する</string>
-    <string name="bt_clear_text">クリア</string>
-    <string name="bt_msg_10s">+10秒</string>
-    <string name="bt_msg_1m">+1分</string>
-    <string name="bt_msg_10m">+10分</string>
-    <string name="move2">戻る</string>
-    <string name="register">登録</string>
-    <string name="tab_title_1">リスト</string>
-    <string name="tab_title_2">タイマー登録</string>
-    <string name="tab_title_3">カテゴリー設定</string>
-    <string name="no_contents_msg">登録されたデータはありません。</string>
+    <string name="app_name">continuous Timer</string>
+    <string name="bt_start_text">Start！</string>
+    <string name="bt_restart_text">restart！</string>
+    <string name="bt_stop_text">stop</string>
+    <string name="bt_ok_text">Register</string>
+    <string name="bt_clear_text">Clear</string>
+    <string name="bt_msg_10s">+10sec</string>
+    <string name="bt_msg_1m">+1min</string>
+    <string name="bt_msg_10m">+10min</string>
+    <string name="move2">Back</string>
+    <string name="register">Register</string>
+    <string name="tab_title_1">List</string>
+    <string name="tab_title_2">Register Timer</string>
+    <string name="tab_title_3">Set Category</string>
+    <string name="no_contents_msg">There is no data.</string>
+
+    <string name="error_text_1">There is no timer setted.。</string>
+    <string name="error_text_2">組み合わせたいタイマーを選択してください。</string>
+    <string name="error_text_3">タイマーが選択されていません。</string>
+
+    <string name="confirm_msg1">選択されたタイマー</string>
+
+    <string name="tani">件</string>
+    <string name="timer_list_title">タイマーリスト</string>
+
+    <string name="minutes">min</string>
+    <string name="second">sec</string>
+    <string name="msg1">Please set Minutes or Second.</string>
+
+    <string name="dialog0_title">Delete Category</string>
+    <string name="dialog0_msg">Delete item you choose.</string>
+    <string name="dialog0_msg2"> has been deleted!</string>
+
+    <string name="dialog1_title">Timer Title</string>
+    <string name="dialog1_msg">Please Enter Timer Title</string>
+    <string name="dialog1_msg2">Timer has been registered！</string>
+    <string name="dialog1_msg3">Please enter Timer title.</string>
+
+    <string name="dialog2_title">Category Title</string>
+    <string name="dialog2_msg">Please Enter Category Title</string>
+
+    <string name="dialog3_title">タイマーを削除する</string>
+    <string name="dialog3_msg">よろしいですか？。</string>
+    <string name="dialog3_msg1">タイマーを削除しました。</string>
+
 </resources>

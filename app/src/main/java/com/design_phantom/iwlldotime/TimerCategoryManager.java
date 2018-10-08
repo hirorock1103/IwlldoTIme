@@ -71,6 +71,11 @@ public class TimerCategoryManager extends MyDbHelper {
         return list;
     }
 
+    //timer
+    public void deleteTimer(int timerId){
+        super.deleteTimer(timerId);
+    }
+
     public List<TimerCategory> getMatrixListByCategoryId(int id) {
 
         return super.getMatrixListByCategoryId(id);

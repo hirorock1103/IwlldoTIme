@@ -172,7 +172,7 @@ public class RenzokuTimerActivity extends AppCompatActivity {
 
                             }
 
-                            bts[0].setText("スタート!");
+                            bts[0].setText(getString(R.string.bt_start_text));
                             timerSecond = 0;
                             break;
 
@@ -186,7 +186,7 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                                 //isStart
                                 isStart = false;
                                 //ボタンの文言変更
-                                bts[0].setText("再開");
+                                bts[0].setText(getString(R.string.bt_restart_text));
 
                             } else {
 
@@ -197,7 +197,7 @@ public class RenzokuTimerActivity extends AppCompatActivity {
 
                                 if (timerSecond == 0) {
                                     //カウントがセットされていない
-                                    Toast.makeText(RenzokuTimerActivity.this, "タイマーがセットされていません！", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RenzokuTimerActivity.this, getString(R.string.error_text_1), Toast.LENGTH_SHORT).show();
 
                                 } else {
 
@@ -207,7 +207,7 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                                     //isStart
                                     isStart = true;
                                     //ボタンの文言変更
-                                    bts[0].setText("一時停止");
+                                    bts[0].setText(getString(R.string.bt_stop_text));
 
                                     //showCategory
                                     List<JoinedMarix> matrixList = manager.getJoinedMatrixListByCategoryId(categoryId);
@@ -308,7 +308,7 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                                 //isStart
                                 isStart = false;
                                 //ボタンの文言変更
-                                bts[0].setText("スタート");
+                                bts[0].setText(getString(R.string.bt_start_text));
                                 //make sound
 
                             }
@@ -404,7 +404,6 @@ public class RenzokuTimerActivity extends AppCompatActivity {
         public int getMinute() {
             return minute;
         }
-
         public int getSecond() {
             return second;
         }

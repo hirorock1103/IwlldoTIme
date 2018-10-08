@@ -92,15 +92,15 @@ public class AddTimerActivity extends AppCompatActivity {
 
                             if (timerSecond == 0) {
                                 //カウントがセットされていない
-                                Toast.makeText(AddTimerActivity.this, "タイマーがセットされていません！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddTimerActivity.this, getString(R.string.error_text_1), Toast.LENGTH_SHORT).show();
 
                             } else {
 
                                 final EditText edit_title = new EditText(AddTimerActivity.this);
 
                                 new AlertDialog.Builder(AddTimerActivity.this)
-                                        .setTitle("タイマー名の設定")
-                                        .setMessage("タイマーの名前を決めてください。")
+                                        .setTitle(getString(R.string.dialog1_title))
+                                        .setMessage(getString(R.string.dialog1_msg))
                                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
@@ -114,11 +114,11 @@ public class AddTimerActivity extends AppCompatActivity {
                                                 timer.setTimer_second(timerSecond);
                                                 manager.addTimer(timer);
 
-                                                Toast.makeText(AddTimerActivity.this, "タイマーを登録しました！", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AddTimerActivity.this, getString(R.string.dialog1_msg2), Toast.LENGTH_SHORT).show();
 
                                             } else {
 
-                                                Toast.makeText(AddTimerActivity.this, "タイマーを登録するにはタイトルを入力してください。", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AddTimerActivity.this, getString(R.string.dialog1_msg3), Toast.LENGTH_SHORT).show();
 
                                             }
 

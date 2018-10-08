@@ -15,6 +15,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,6 +30,8 @@ public class MakeMtrxActivity extends AppCompatActivity {
     private LinearLayout timerLayout;
     private Button bt_ok;
     private Context context;
+    private TextView matrix_msg;
+    private TextView timer_msg;
 
     //data
     private List<Timer> timerList;
@@ -43,6 +48,9 @@ public class MakeMtrxActivity extends AppCompatActivity {
         v.setBackgroundColor(Color.parseColor("#0280aa"));
         v.setTextColor(Color.WHITE);
 
+        matrix_msg = findViewById(R.id.matrix_msg);
+        timer_msg = findViewById(R.id.timer_msg);
+
         manager = new TimerCategoryManager(this);
         //getData
         timerList = manager.getTimerList();
@@ -54,16 +62,22 @@ public class MakeMtrxActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                //何もセットされていない場合
+                if(selectedTimerList.size() == 0){
+                    Toast.makeText(MakeMtrxActivity.this, getString(R.string.error_text_2), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 final EditText edit_category_title = new EditText(MakeMtrxActivity.this);
                 new AlertDialog.Builder(MakeMtrxActivity.this)
-                        .setTitle("タイマー名の設定")
-                        .setMessage("タイマーの名前を決めてください。")
+                        .setTitle(getString(R.string.dialog2_title))
+                        .setMessage(getString(R.string.dialog2_msg))
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
                                 if (edit_category_title.getText().equals("") == true) {
-                                    Toast.makeText(MakeMtrxActivity.this, "cant register", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(MakeMtrxActivity.this, "cant register", Toast.LENGTH_SHORT).show();
                                 } else {
 
                                     if (selectedTimerList.size() > 0) {
@@ -130,6 +144,7 @@ public class MakeMtrxActivity extends AppCompatActivity {
             });
         }
 
+
         //area
         timerLayout = findViewById(R.id.layout_show_timer_area);
         selecedTimerLayout = findViewById(R.id.layout_matix_selected_result);
@@ -137,20 +152,35 @@ public class MakeMtrxActivity extends AppCompatActivity {
         //show all timer
         showAllTimer(timerList);
 
+        //選択されたITEMがない場合
+        if(selectedTimerList.size() == 0){
+            matrix_msg.setText(getString(R.string.error_text_3));
+            bt_ok.setEnabled(false);
+        }
     }
 
     private void showAllTimer(List<Timer> list) {
+
+        timerLayout.removeAllViews();
+
         if (list.size() > 0) {
 
             for (final Timer timer : list) {
+                TimerTime timerTime = new TimerTime();
+                timerTime.change(timer.getTimer_second());
+                final int min =timerTime.getMinute();
+                final int sec =timerTime.getSecond();
 
                 Button bt = new Button(MakeMtrxActivity.this);
-                bt.setText(timer.getTimer_title() + "(" + timer.getTimer_minutes() + ":" + timer.getTimer_second() + ")");
+
+                bt.setTag(timer.getTimer_id());
+
+                bt.setText(  timer.getTimer_title() + "(" + String.format("%02d", min) + ":" + String.format("%02d", sec) + ")");
                 bt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Button bt = new Button(MakeMtrxActivity.this);
-                        bt.setText("☓ " + timer.getTimer_title() + "(" + timer.getTimer_minutes() + ":" + timer.getTimer_second() + ")");
+                        bt.setText("☓ " + timer.getTimer_title() + "(" + String.format("%02d", min) + ":" + String.format("%02d", sec) + ")");
                         bt.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -161,8 +191,6 @@ public class MakeMtrxActivity extends AppCompatActivity {
                                     Button bt = (Button) selecedTimerLayout.getChildAt(i);
 
                                     if (bt == view) {
-                                        Log.i("INFO", "僕が叩かれたよ@" + bt.getText().toString());
-                                        Log.i("INFO", "僕の要素順は@" + i + "だよ！");
                                         deleteId = i;
                                     }
                                 }
@@ -171,6 +199,15 @@ public class MakeMtrxActivity extends AppCompatActivity {
                                     //remove View
                                     selecedTimerLayout.removeView(view);
                                     selectedTimerList.remove(deleteId);
+
+                                    //選択されたITEMがない場合
+                                    if(selectedTimerList.size() == 0){
+                                        matrix_msg.setText(getString(R.string.error_text_3));
+                                        bt_ok.setEnabled(false);
+                                    }else{
+                                        matrix_msg.setText( getString(R.string.confirm_msg1) + selectedTimerList.size() + getString(R.string.tani) );
+                                        bt_ok.setEnabled(true);
+                                    }
                                 }
 
                                 //checkSelectedTimer();
@@ -181,9 +218,46 @@ public class MakeMtrxActivity extends AppCompatActivity {
                         //selectedTimerListにも追加
                         selectedTimerList.add(timer);
 
+                        if(selectedTimerList.size() > 0){
+                            matrix_msg.setText( getString(R.string.confirm_msg1) + selectedTimerList.size() + getString(R.string.tani) );
+                            bt_ok.setEnabled(true);
+                        }
                         //checkSelectedTimer();
                     }
                 });
+
+                bt.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+
+                        final int timerId = Integer.parseInt(view.getTag().toString());
+
+                        new AlertDialog.Builder(MakeMtrxActivity.this)
+                                .setTitle(getString(R.string.dialog3_title))
+                                .setMessage(getString(R.string.dialog3_msg))
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        manager.deleteTimer(timerId);
+                                        Toast.makeText(MakeMtrxActivity.this, getString(R.string.dialog3_msg1),Toast.LENGTH_SHORT).show();
+                                        timerList = manager.getTimerList();
+
+                                        for (Timer timer : timerList){
+                                            Common.log("\n" + timer.getTimer_title() + "\n");
+                                        }
+
+                                        showAllTimer(timerList);
+
+                                    }
+                                })
+                                .setNegativeButton("Cancel", null)
+                                .setCancelable(false)
+                                .show();
+                        return true;
+
+                    }
+                });
+
                 timerLayout.addView(bt);
 
             }
@@ -195,6 +269,34 @@ public class MakeMtrxActivity extends AppCompatActivity {
     public void checkSelectedTimer() {
         for (Timer timer : selectedTimerList) {
             Log.i("INFO:格納timer", timer.getTimer_title());
+        }
+    }
+
+    private class TimerTime {
+
+        private int minute;
+        private int second;
+
+        TimerTime() {
+
+        }
+
+        public void change(int second) {
+            if (second < 60) {
+                this.second = second;
+                this.minute = 0;
+            } else {
+
+                this.second = second % 60;
+                this.minute = second / 60;
+            }
+        }
+
+        public int getMinute() {
+            return minute;
+        }
+        public int getSecond() {
+            return second;
         }
     }
 
