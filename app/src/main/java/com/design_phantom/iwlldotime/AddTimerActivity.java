@@ -52,7 +52,6 @@ public class AddTimerActivity extends AppCompatActivity {
         bts[0] = findViewById(R.id.bt_10second);
         bts[1] = findViewById(R.id.bt_1minute);
         bts[2] = findViewById(R.id.bt_10minute);
-        //bts[3] = findViewById(R.id.bt_30minute);
         bts[3] = findViewById(R.id.bt_reg);
         bts[4] = findViewById(R.id.bt_clear);
 
@@ -127,12 +126,11 @@ public class AddTimerActivity extends AppCompatActivity {
                                             }
                                         })
                                         .setView(edit_title)
+                                        .setCancelable(false)
                                         .setNegativeButton("Cancel", null)
                                         .show();
 
                             }
-
-
 
                             break;
                     }

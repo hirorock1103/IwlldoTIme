@@ -25,7 +25,6 @@ public class MakeMtrxActivity extends AppCompatActivity {
     private TimerCategoryManager manager;
     private LinearLayout selecedTimerLayout;
     private LinearLayout timerLayout;
-    private LinearLayout showTimerAreaLayout;
     private Button bt_ok;
     private Context context;
 
@@ -94,6 +93,7 @@ public class MakeMtrxActivity extends AppCompatActivity {
                             }
                         })
                         .setView(edit_category_title)
+                        .setCancelable(false)
                         .setNegativeButton("Cancel", null)
                         .show();
 
@@ -173,7 +173,7 @@ public class MakeMtrxActivity extends AppCompatActivity {
                                     selectedTimerList.remove(deleteId);
                                 }
 
-                                checkSelectedTimer();
+                                //checkSelectedTimer();
                             }
                         });
                         //show selected timer
@@ -181,7 +181,7 @@ public class MakeMtrxActivity extends AppCompatActivity {
                         //selectedTimerListにも追加
                         selectedTimerList.add(timer);
 
-                        checkSelectedTimer();
+                        //checkSelectedTimer();
                     }
                 });
                 timerLayout.addView(bt);

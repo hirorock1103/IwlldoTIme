@@ -36,7 +36,6 @@ public class RenzokuTimerActivity extends AppCompatActivity {
     private Button[] bts;
     private LinearLayout timer_navgation_area;
 
-    //
     private int categoryId;
     private Timer selectedTimer;
     private List<Timer> matrixTimerList;
@@ -64,7 +63,6 @@ public class RenzokuTimerActivity extends AppCompatActivity {
         //list ※実行するタイマーをセット
         matrixTimerList = new ArrayList<>();
 
-
         //カテゴリエリアにカテゴリ情報を表示
         timer_navgation_area = findViewById(R.id.timer_navgation_area);
 
@@ -78,11 +76,9 @@ public class RenzokuTimerActivity extends AppCompatActivity {
             manager = new TimerCategoryManager(RenzokuTimerActivity.this);
             List<JoinedMarix> joinedMarixList = manager.getJoinedMatrixListByCategoryId(categoryId);
 
-            String categoryName = "";
             for (JoinedMarix matrix : joinedMarixList) {
                 //実行するタイマーをセットする
                 matrixTimerList.add(matrix.getTimer());
-                categoryName = matrix.getCategory().getCategory_name();
             }
 
             if (matrixTimerList.size() > 1) {
@@ -111,6 +107,11 @@ public class RenzokuTimerActivity extends AppCompatActivity {
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (timer != null) {
+                    timer.cancel();
+                }
+
                 Intent intent = new Intent(RenzokuTimerActivity.this, TimerListActivity.class);
                 startActivity(intent);
             }
@@ -126,12 +127,10 @@ public class RenzokuTimerActivity extends AppCompatActivity {
             bts[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int second = 0;
-                    int minute = 0;
+
                     switch (view.getId()) {
 
                         case R.id.bt_clear:
-
 
                             if (timer != null) {
                                 timer.cancel();
@@ -146,11 +145,9 @@ public class RenzokuTimerActivity extends AppCompatActivity {
 
                                 matrixTimerList = new ArrayList<>();
 
-                                String categoryName = "";
                                 for (JoinedMarix matrix : joinedMarixList) {
                                     //実行するタイマーをセットする
                                     matrixTimerList.add(matrix.getTimer());
-                                    categoryName = matrix.getCategory().getCategory_name();
                                 }
 
 
@@ -265,8 +262,6 @@ public class RenzokuTimerActivity extends AppCompatActivity {
             public void onFinish() {
 
                 //実行したタイマーは実行リストから除去
-
-                Toast.makeText(RenzokuTimerActivity.this, "size before:" + matrixTimerList.size(), Toast.LENGTH_SHORT).show();
                 if (matrixTimerList.size() > 0) {
 
                     //Intervalをセットする
@@ -314,6 +309,8 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                                 isStart = false;
                                 //ボタンの文言変更
                                 bts[0].setText("スタート");
+                                //make sound
+
                             }
 
 

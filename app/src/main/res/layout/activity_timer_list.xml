@@ -12,7 +12,6 @@
         android:orientation="vertical"
         >
 
-
         <include
             layout="@layout/tab_view"
             android:layout_width="match_parent"

@@ -91,7 +91,6 @@ public class TimerListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(TimerListActivity.this, RenzokuTimerActivity.class);
-                //Toast.makeText(TimerListActivity.this, categoryList.get(i).getCategory_name(), Toast.LENGTH_SHORT).show();
                 intent.putExtra("categoryId", categoryList.get(i).getCategory_id());
                 startActivity(intent);
             }
