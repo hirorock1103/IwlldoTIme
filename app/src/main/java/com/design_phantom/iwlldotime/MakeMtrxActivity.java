@@ -1,6 +1,9 @@
 package com.design_phantom.iwlldotime;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ public class MakeMtrxActivity extends AppCompatActivity {
     private LinearLayout timerLayout;
     private LinearLayout showTimerAreaLayout;
     private Button bt_ok;
+    private Context context;
 
     //data
     private List<Timer> timerList;
@@ -34,6 +38,11 @@ public class MakeMtrxActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_mtrx);
+        context = this;
+
+        Button v = findViewById(R.id.tab_3);
+        v.setBackgroundColor(Color.parseColor("#0280aa"));
+        v.setTextColor(Color.WHITE);
 
         manager = new TimerCategoryManager(this);
         //getData
@@ -90,6 +99,36 @@ public class MakeMtrxActivity extends AppCompatActivity {
 
             }
         });
+
+        Button[] tabs = new Button[3];
+        tabs[0] = findViewById(R.id.tab_1);
+        tabs[1] = findViewById(R.id.tab_2);
+        tabs[2] = findViewById(R.id.tab_3);
+
+        for(int i = 0; i < tabs.length; i++){
+            tabs[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = null;
+                    switch(view.getId()){
+                        case R.id.tab_1:
+                            intent = new Intent(context, TimerListActivity.class);
+                            startActivity(intent);
+                            break;
+
+                        case R.id.tab_2:
+                            intent = new Intent(context, AddTimerActivity.class);
+                            startActivity(intent);
+                            break;
+
+                        case R.id.tab_3:
+                            intent = new Intent(context, MakeMtrxActivity.class);
+                            startActivity(intent);
+                            break;
+                    }
+                }
+            });
+        }
 
         //area
         timerLayout = findViewById(R.id.layout_show_timer_area);

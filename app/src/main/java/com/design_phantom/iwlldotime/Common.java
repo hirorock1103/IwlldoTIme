@@ -1,6 +1,8 @@
 package com.design_phantom.iwlldotime;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Common {
 
@@ -34,6 +36,10 @@ public class Common {
 
     public static void log(String comment){
         Log.i("INFO", comment);
+    }
+
+    public static void toast(Context context, String comment){
+        Toast.makeText(context,comment,Toast.LENGTH_SHORT).show();
     }
 
 }

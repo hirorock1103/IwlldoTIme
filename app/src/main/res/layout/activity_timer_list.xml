@@ -12,40 +12,25 @@
         android:orientation="vertical"
         >
 
-        <LinearLayout
+
+        <include
+            layout="@layout/tab_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="0dp"
-            android:gravity="left"
-            android:padding="5dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <ImageView
-                android:id="@+id/monster"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:src="@drawable/pengin" />
+        <LinearLayout
+            android:id="@+id/wrap_listview"
+            android:layout_width="match_parent"
+            android:layout_height="307dp"
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/penginFukiasi1"
-                android:text="@string/pengin_comment_4"
-                android:id="@+id/pengin_comment"
-                />
+            <ListView
+                android:id="@+id/list_view1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/list_view1"
-            android:layout_width="match_parent"
-            android:layout_height="400dp" />
-
-        <Button
-            android:id="@+id/add_timer"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@android:drawable/ic_input_add" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

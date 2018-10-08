@@ -13,30 +13,10 @@
         android:id="@+id/layout"
         android:orientation="vertical">
 
-
-        <LinearLayout
+        <include
+            layout="@layout/tab_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="0dp"
-            android:gravity="left"
-            android:padding="5dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/monster"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:src="@drawable/pengin" />
-
-            <TextView
-                style="@style/penginFukiasi1"
-                android:text="@string/pengin_comment_1"
-                android:id="@+id/pengin_comment_3"
-                />
-
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
 
         <LinearLayout

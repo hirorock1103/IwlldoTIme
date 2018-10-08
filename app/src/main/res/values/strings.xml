@@ -4,10 +4,10 @@
     <string name="bt_ok_text">登録する</string>
     <string name="bt_clear_text">クリア</string>
     <string name="agreement_text">テストメッセージ</string>
-    <string name="pengin_comment_1">登録したいタイマーの時間をセットして「登録ボタン」押してね！</string>
+    <string name="pengin_comment_1">登録したいタイマーの時間をセットして\n「登録ボタン」押してね！</string>
     <string name="pengin_comment_2">選択したタイマーを連続で実行できるよ！</string>
     <string name="pengin_comment_3">登録したタイマーを組み合わせてみよう！</string>
-    <string name="pengin_comment_4">リストをクリックすると連続タイマーが開始するよ！</string>
+    <string name="pengin_comment_4">リストをクリックすると\n連続タイマーが開始するよ！</string>
     <string name="bt_msg_10s">+10秒</string>
     <string name="bt_msg_1m">+1分</string>
     <string name="bt_msg_10m">+10分</string>
@@ -24,4 +24,8 @@
     <string name="add_category">カテゴリ追加</string>
     <string name="delete_categry">カテゴリ削除</string>
     <string name="bt_move_to_make_matrix">組み合わせ設定</string>
+    <string name="tab_title_1">リスト</string>
+    <string name="tab_title_2">タイマー登録</string>
+    <string name="tab_title_3">カテゴリー設定</string>
+    <string name="no_contents_msg">登録されたデータはありません。</string>
 </resources>

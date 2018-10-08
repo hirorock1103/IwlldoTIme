@@ -33,7 +33,6 @@ public class RenzokuTimerActivity extends AppCompatActivity {
     //View
     private TextView setTimeTextSecond;
     private TextView setTimeTextMinute;
-    private TextView penginComment;
     private Button[] bts;
     private LinearLayout timer_navgation_area;
 
@@ -65,10 +64,6 @@ public class RenzokuTimerActivity extends AppCompatActivity {
         //list ※実行するタイマーをセット
         matrixTimerList = new ArrayList<>();
 
-        //アニメ部分 a1アニメ
-        findViewById(R.id.monster).startAnimation(AnimationUtils.loadAnimation(this, R.anim.a1));
-        //ペンギンmsg
-        penginComment = findViewById(R.id.pengin_comment);
 
         //カテゴリエリアにカテゴリ情報を表示
         timer_navgation_area = findViewById(R.id.timer_navgation_area);
@@ -93,11 +88,6 @@ public class RenzokuTimerActivity extends AppCompatActivity {
             if (matrixTimerList.size() > 1) {
                 //timerListのタイマーが２つ以上ならintervalを有効にする
                 interval = true;
-            }
-
-            if (categoryName != "") {
-                //set pengin comment
-                penginComment.setText(categoryName + "を実行するよ！");
             }
 
             if (joinedMarixList.size() > 0) {
@@ -163,9 +153,6 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                                     categoryName = matrix.getCategory().getCategory_name();
                                 }
 
-                                if (categoryName != "") {
-                                    penginComment.setText(categoryName + "をもとにもどしたよ！");
-                                }
 
                                 if (matrixTimerList.size() > 1) {
                                     //timerListのタイマーが２つ以上ならintervalを有効にする

@@ -1,7 +1,9 @@
 package com.design_phantom.iwlldotime;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,9 +24,9 @@ public class AddTimerActivity extends AppCompatActivity {
     private TextView setTimeTextSecond;
     private TextView setTimeTextMinute;
     private InputMethodManager inputMethodManager;
-    private TextView penginComment;
     private Button[] bts;
     private LinearLayout layout;
+    private Context context;
 
 
     @Override
@@ -32,14 +34,14 @@ public class AddTimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_timer);
 
+        context = this;
+
+        Button v = findViewById(R.id.tab_2);
+        v.setBackgroundColor(Color.parseColor("#0280aa"));
+        v.setTextColor(Color.WHITE);
+
         layout = findViewById(R.id.layout);
         inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-        //アニメ部分 a1アニメ
-        findViewById(R.id.monster).startAnimation(AnimationUtils.loadAnimation(this, R.anim.a1));
-
-        //ペンギンmsg
-        penginComment = findViewById(R.id.pengin_comment);
 
         //表示時間
         setTimeTextSecond = findViewById(R.id.text_count_second);
@@ -53,15 +55,6 @@ public class AddTimerActivity extends AppCompatActivity {
         //bts[3] = findViewById(R.id.bt_30minute);
         bts[3] = findViewById(R.id.bt_reg);
         bts[4] = findViewById(R.id.bt_clear);
-
-        Button btAddMatrix = findViewById(R.id.bt_add_matrix);
-        btAddMatrix.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AddTimerActivity.this, MakeMtrxActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         for (int i = 0; i < bts.length; i++) {
@@ -115,8 +108,6 @@ public class AddTimerActivity extends AppCompatActivity {
 
                                             if (edit_title.getText().toString().equals("") == false) {
 
-                                                penginComment.setText("『" + edit_title.getText() + "』というタイトルでタイマーを登録したよ！");
-
                                                 TimerCategoryManager manager = new TimerCategoryManager(AddTimerActivity.this);
 
                                                 Timer timer = new Timer();
@@ -146,6 +137,37 @@ public class AddTimerActivity extends AppCompatActivity {
                             break;
                     }
 
+                }
+            });
+        }
+
+
+        Button[] tabs = new Button[3];
+        tabs[0] = findViewById(R.id.tab_1);
+        tabs[1] = findViewById(R.id.tab_2);
+        tabs[2] = findViewById(R.id.tab_3);
+
+        for(int i = 0; i < tabs.length; i++){
+            tabs[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = null;
+                    switch(view.getId()){
+                        case R.id.tab_1:
+                                                        intent = new Intent(context, TimerListActivity.class);
+                            startActivity(intent);
+                            break;
+
+                        case R.id.tab_2:
+                            intent = new Intent(context, AddTimerActivity.class);
+                            startActivity(intent);
+                            break;
+
+                        case R.id.tab_3:
+                            intent = new Intent(context, MakeMtrxActivity.class);
+                            startActivity(intent);
+                            break;
+                    }
                 }
             });
         }

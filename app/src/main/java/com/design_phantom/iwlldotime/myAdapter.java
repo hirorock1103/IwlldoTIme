@@ -34,7 +34,6 @@ public class myAdapter extends ArrayAdapter<Category> {
 
         StringBuilder builder = new StringBuilder();
         for (JoinedMarix matrix : list){
-
             builder.append(matrix.getTimer().getTimer_title() + "/");
         }
 
