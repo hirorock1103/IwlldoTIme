@@ -16,13 +16,13 @@
     <string name="no_contents_msg">There is no data.</string>
 
     <string name="error_text_1">There is no timer setted.。</string>
-    <string name="error_text_2">組み合わせたいタイマーを選択してください。</string>
-    <string name="error_text_3">タイマーが選択されていません。</string>
+    <string name="error_text_2">Please choose timer you want to combine with.</string>
+    <string name="error_text_3">Timer has not been selected.</string>
 
-    <string name="confirm_msg1">選択されたタイマー</string>
+    <string name="confirm_msg1">Timer You selected is ... </string>
 
-    <string name="tani">件</string>
-    <string name="timer_list_title">タイマーリスト</string>
+    <string name="tani">timers</string>
+    <string name="timer_list_title">Timer List</string>
 
     <string name="minutes">min</string>
     <string name="second">sec</string>
@@ -40,8 +40,8 @@
     <string name="dialog2_title">Category Title</string>
     <string name="dialog2_msg">Please Enter Category Title</string>
 
-    <string name="dialog3_title">タイマーを削除する</string>
-    <string name="dialog3_msg">よろしいですか？。</string>
-    <string name="dialog3_msg1">タイマーを削除しました。</string>
+    <string name="dialog3_title">Delete Timer</string>
+    <string name="dialog3_msg">Is it OK?</string>
+    <string name="dialog3_msg1">Timer has been deleted.</string>
 
 </resources>

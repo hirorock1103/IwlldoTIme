@@ -3,6 +3,8 @@ package com.design_phantom.iwlldotime;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +32,9 @@ public class RenzokuTimerActivity extends AppCompatActivity {
 
     private static int INTERVAL_TIME = 5;
 
+    SoundPool soundPool;
+    int soundId;
+
     //View
     private TextView setTimeTextSecond;
     private TextView setTimeTextMinute;
@@ -55,6 +60,11 @@ public class RenzokuTimerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_renzoku_timer);
+
+        //ready sound
+        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        soundId = soundPool.load(this,R.raw.alarm1, 1);
+
 
         //表示時間
         setTimeTextSecond = findViewById(R.id.text_count_second);
@@ -267,6 +277,11 @@ public class RenzokuTimerActivity extends AppCompatActivity {
                     //Intervalをセットする
                     if (interval == true) {
 
+                        Common.log("interval");
+                        //make sound
+                        soundPool.play(soundId,1.0F, 1.0F, 0, 0, 1.0F);
+
+
                         Timer timer = new Timer();
                         timer.setTimer_title("interval");
                         timer.setTimer_second(INTERVAL_TIME);
@@ -347,6 +362,8 @@ public class RenzokuTimerActivity extends AppCompatActivity {
         timer_navgation_area.removeAllViews();
         for (JoinedMarix matrix : list) {
 
+            Common.log("order:" + order);
+
             TextView textView = new TextView(RenzokuTimerActivity.this);
             timeManager.change(matrix.getTimer().getTimer_second());
             int second = timeManager.getSecond();
@@ -377,6 +394,8 @@ public class RenzokuTimerActivity extends AppCompatActivity {
             i++;
 
         }
+
+
 
     }
 

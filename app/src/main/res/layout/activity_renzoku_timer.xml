@@ -40,63 +40,58 @@
 
 
         <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:gravity="center"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:layout_gravity="center"
             android:layout_weight="0"
             android:background="@drawable/circle01"
+            android:gravity="center"
             android:orientation="horizontal">
 
 
             <TextView
+                android:id="@+id/text_count_minute"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
-                android:textSize="60dp"
+                android:gravity="bottom"
                 android:text="00"
                 android:textColor="#fff"
-                android:id="@+id/text_count_minute"
-                android:gravity="bottom"
-                />
+                android:textSize="60dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
-                android:textSize="20sp"
+                android:gravity="bottom"
                 android:text="@string/minutes"
                 android:textColor="#fff"
-                android:gravity="bottom"
-                />
+                android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/text_count_second"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
-                android:textSize="60sp"
+                android:gravity="bottom"
                 android:text="00"
                 android:textColor="#fff"
-                android:id="@+id/text_count_second"
-                android:gravity="bottom"
-                />
+                android:textSize="60sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
-                android:textSize="20sp"
+                android:gravity="bottom"
                 android:text="@string/second"
                 android:textColor="#fff"
-                android:gravity="bottom"
-                />
+                android:textSize="20sp" />
 
 
             <TextView
+                android:id="@+id/point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="2sp"
-                android:text=""
-                android:id="@+id/point"
-                android:textColor="#fff"
                 android:gravity="bottom"
-                />
+                android:text=""
+                android:textColor="#fff"
+                android:textSize="2sp" />
 
 
         </LinearLayout>
